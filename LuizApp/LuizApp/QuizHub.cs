@@ -8,7 +8,7 @@ namespace SignalRChat.Hubs
 {
     public class QuizHub : Hub
     {
-        private static int Timeleft;
+        private static int Timeleft = 0;
         private static Dictionary<string,GameServerConnection> GameServer = new System.Collections.Generic.Dictionary<string, GameServerConnection>();
         //CLIENT > SERVER
         public void ConnectToServer(string UserID, string UserName, bool Connected)
@@ -30,6 +30,7 @@ namespace SignalRChat.Hubs
                 {
                     GameServer[UserID].ConnectionId = Context.ConnectionId;
                 }
+                Clients.Client(Context.ConnectionId).SendAsync("signedIn");
             }
         }
         public void AnswerQuestion(string UserID, int Answer)

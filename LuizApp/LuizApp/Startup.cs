@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using LuizApp.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SignalRChat.Hubs;
 
 namespace LuizApp
 {
@@ -42,7 +43,7 @@ namespace LuizApp
                     Configuration.GetConnectionString("QuizContext")));
             services.AddDefaultIdentity<IdentityUser>()
                 .AddEntityFrameworkStores<ApplicationDbContext>();
-
+            services.AddSignalR();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -65,7 +66,10 @@ namespace LuizApp
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<QuizHub>("/quizHub");
+            });
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
