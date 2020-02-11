@@ -1,17 +1,112 @@
 ﻿@{
     ViewData["Title"] = "Contact";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<style>
+    .*{
+        margin:0px;
+    }
+    .answerbutton{
+        width:100%;
+        height:100%;
+        font-size:200px;
+        font-weight:900;
+        color:white;
+        border:0px solid #EEEEEE
+    }
+    .answerbutton:hover{
+        filter: brightness(85%);
+    }
+    .answerbutton:active{
+        filter: brightness(60%);
+    }
+    .fullscreendiv{
+        background-color:#EEEEEE;
+        padding:30px;
+        display:none;
+    }
+    .fullscreendiv:fullscreen{
+        display:inline;
+    }
+    .smallstatusicons {
+        height: 50px;
+        width: 50px;
+        background-color:lightblue;
+        border-radius: 50%;
+        display: inline-block;
+        border:4px solid gray
+    }
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
+</style>
+<div style="text-align:center">
+    <h3 style="margin-top:40vh;color:red">Sorry! Fullscreen Required!</h3>
+    <a href="#" id="toggle_fullscreen">Toggle Fullscreen to Enable</a>
+</div>
+<div class="fullscreendiv" id="fullscreenthis" hidden>
+    <table style="width:100%;height:80vh">
+        <tr>
+            <td style="width:25%;padding-bottom:5px">
+                <input type="button" class="answer answerbutton" id="a" value="A" style="background-color:#42c5f5" />
+            </td>
+            <td style="width:25%;padding-left:5px;padding-bottom:5px">
+                <input type="button" class="answer answerbutton" id="b" value="B" style="background-color:#f54284" />
+            </td>
+        </tr>
+        <tr>
+            <td style="width:25%">
+                <input type="button" class="answer answerbutton" id="c" value="C" style="background-color:#3ce663" />
+            </td>
+            <td style="width:25%;padding-left:5px">
+                <input type="button" class="answer answerbutton" id="d" value="D" style="background-color:#e6c73c" />
+            </td>
+        </tr>
+    </table>
+    <div style="margin-top:15px;text-align:center" id="userinfo">
+        <span style="background-color:black;color:white;padding:5px;font-size:30px">0008888</span>
+    </div>
 
-<address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+</div>  
+
+
+<script src="~/lib/signalr/dist/browser/signalr.js"></script>
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $('#toggle_fullscreen').on('click', function () {
+        // if already full screen; exit
+        // else go fullscreen
+        if (
+            document.fullscreenElement ||
+            document.webkitFullscreenElement ||
+            document.mozFullScreenElement ||
+            document.msFullscreenElement
+        ) {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+        } else {
+            element = $('#fullscreenthis').get(0);
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) {
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) {
+                element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            } else if (element.msRequestFullscreen) {
+                element.msRequestFullscreen();
+            }
+            
+        }
+    });
+</script>
+<script>
+    var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
+
+    quiz.start().then(function () {
+
+    });
+</script>

@@ -71,15 +71,20 @@ namespace SignalRChat.Hubs
                 GameServer[item].LastAnswer = 0;
             }
         }
-        public void ScoreToggle(bool ReviewScore)
+        public void ViewToggle(bool ReviewScore)
         {
             var ClientLeaderboard = GameServer.ToList();
             foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points))
             {
-                Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak)
+                Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak);
             }
             Clients.All.SendAsync("toggleScore", ReviewScore);
             
+        }
+        //MASTER > CLIENT
+        public void TimeLeft(int seconds)
+        {
+            Clients.All.SendAsync("questionTimeLeft", seconds);
         }
     }
 }
