@@ -1,4 +1,4 @@
-﻿using LuizApp.Models;
+﻿    using LuizApp.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Linq;
@@ -70,6 +70,16 @@ namespace SignalRChat.Hubs
                 }
                 GameServer[item].LastAnswer = 0;
             }
+        }
+        public void ScoreToggle(bool ReviewScore)
+        {
+            var ClientLeaderboard = GameServer.ToList();
+            foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points))
+            {
+                Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak)
+            }
+            Clients.All.SendAsync("toggleScore", ReviewScore);
+            
         }
     }
 }
