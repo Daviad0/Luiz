@@ -54,8 +54,15 @@ namespace SignalRChat.Hubs
         //MASTER > SERVER
         public void CheckAnswers(int CorrectAnswer)
         {
-            foreach(var item in GameServer.Keys)
+            int numcorrect = 0;
+            int numwrong = 0;
+            int num1 = 0;
+            int num2 = 0;
+            int num3 = 0;
+            int num4 = 0;
+            foreach (var item in GameServer.Keys)
             {
+                
                 if(GameServer[item].LastAnswer == CorrectAnswer)
                 {
                     GameServer[item].Points += 1000;
@@ -63,14 +70,35 @@ namespace SignalRChat.Hubs
                     GameServer[item].Points += 50 * GameServer[item].Streak;
                     GameServer[item].Streak++;
                     Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
+                    numcorrect++;
                 }
                 else
                 {
                     GameServer[item].Streak = 0;
                     Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, false, GameServer[item].Streak);
+                    numwrong++;
+                }
+                if(GameServer[item].LastAnswer != 0)
+                {
+                    if(GameServer[item].LastAnswer == 1)
+                    {
+                        num1++;
+                    }else if(GameServer[item].LastAnswer == 2)
+                    {
+                        num2++;
+                    }
+                    else if (GameServer[item].LastAnswer == 3)
+                    {
+                        num3++;
+                    }
+                    else if (GameServer[item].LastAnswer == 4)
+                    {
+                        num4++;
+                    }
                 }
                 GameServer[item].LastAnswer = 0;
             }
+            Clients.All.SendAsync("questionResults", numcorrect, numwrong, num1, num2, num3, num4);
         }
         public void ViewToggle(bool ReviewScore)
         {

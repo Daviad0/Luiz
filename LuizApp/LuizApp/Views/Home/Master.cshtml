@@ -43,6 +43,12 @@
 <input type="button"id="checkanswer4" value="Check Answer 4" />
 <input type="button"id="advance" value="Send" />
 <input type="button"id="next" value="Next Question" />
+<span id="num1">0</span>
+<span id="num2">0</span>
+<span id="num3">0</span>
+<span id="num4">0</span>
+<span id="numcorrect" style="color:green">0</span>
+<span id="numwrong" style="color:red">0</span>
 
 
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
@@ -83,7 +89,14 @@
 </script>
 <script>
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-
+    quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
+        $("#numcorrect").html(Correct);
+        $("#numwrong").html(Wrong);
+        $("#num1").html(Num1);
+        $("#num2").html(Num2);
+        $("#num3").html(Num3);
+        $("#num4").html(Num4);
+    });
     quiz.start().then(function () {
         $("#checkanswer1").click(function () {
             quiz.invoke("checkAnswers", 1);
