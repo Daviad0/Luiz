@@ -13,12 +13,12 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
-#line 1 "C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\Views\_ViewImports.cshtml"
+#line 1 "/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/Views/_ViewImports.cshtml"
 using LuizApp;
 
 #line default
 #line hidden
-#line 2 "C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\Views\_ViewImports.cshtml"
+#line 2 "/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/Views/_ViewImports.cshtml"
 using LuizApp.Models;
 
 #line default
@@ -54,7 +54,7 @@ using LuizApp.Models;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
-#line 1 "C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\Views\Home\Client.cshtml"
+#line 1 "/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/Views/Home/Client.cshtml"
   
     ViewData["Title"] = "Contact";
 
@@ -125,8 +125,8 @@ using LuizApp.Models;
                         <input type=""button"" class=""answer answerbutton"" id=""a3"" value=""3"" style=""background-color:#3ce663"" />
                     </td>
                     <td style=""width:25%;padding-left:5px"">
-                        <input type=""button"" class=""answer answerbu");
-                WriteLiteral(@"tton"" id=""a4"" value=""4"" style=""background-color:#e6c73c"" />
+                        <input type=""button"" class=""answer answerbutton"" id=""a4"" val");
+                WriteLiteral(@"ue=""4"" style=""background-color:#e6c73c"" />
                     </td>
                 </tr>
             </table>
@@ -226,8 +226,8 @@ using LuizApp.Models;
                 element.requestFullscreen();
             } else if (element.mozRequestFullScreen) {
                 element.mozRequestFullScreen();
-            } else if");
-            WriteLiteral(@" (element.webkitRequestFullscreen) {
+            } else if (");
+            WriteLiteral(@"element.webkitRequestFullscreen) {
                 element.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
@@ -259,10 +259,10 @@ using LuizApp.Models;
     });
     quiz.on(""signedIn"", function () {
         $(""#question"").attr(""hidden"", false);
-        $(""#login"").att");
-            WriteLiteral(@"r(""hidden"", true);
+        $(""#login"").attr(""hidden"", true);
     });
-    quiz.on(""answerStatus"", function (Score, Correct, Streak) {
+");
+            WriteLiteral(@"    quiz.on(""answerStatus"", function (Score, Correct, Streak) {
         
         if (Correct == true) {
             correct = true;
