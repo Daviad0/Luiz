@@ -20,12 +20,7 @@
         filter: brightness(60%);
     }
     .fullscreendiv{
-        background-color:#EEEEEE;
         padding:30px;
-        display:none;
-    }
-    .fullscreendiv:fullscreen{
-        display:inline;
     }
     .smallstatusicons {
         height: 50px;
@@ -35,44 +30,57 @@
         display: inline-block;
         border:4px solid gray
     }
-
+    .body{
+        padding:0;
+        margin:0;
+    }
 </style>
-<div style="text-align:center">
-    <h3 style="margin-top:40vh;color:red">Sorry! Fullscreen Required!</h3>
-    <a href="#" id="toggle_fullscreen">Toggle Fullscreen to Enable</a>
-</div>
-<div class="fullscreendiv" id="fullscreenthis" hidden>
-    <div id="question" hidden>
-        <table style="width:100%;height:80vh">
-            <tr>
-                <td style="width:25%;padding-bottom:5px">
-                    <input type="button" class="answer answerbutton" id="a" value="A" style="background-color:#42c5f5" />
-                </td>
-                <td style="width:25%;padding-left:5px;padding-bottom:5px">
-                    <input type="button" class="answer answerbutton" id="b" value="B" style="background-color:#f54284" />
-                </td>
-            </tr>
-            <tr>
-                <td style="width:25%">
-                    <input type="button" class="answer answerbutton" id="c" value="C" style="background-color:#3ce663" />
-                </td>
-                <td style="width:25%;padding-left:5px">
-                    <input type="button" class="answer answerbutton" id="d" value="D" style="background-color:#e6c73c" />
-                </td>
-            </tr>
-        </table>
-        <div style="margin-top:15px;text-align:center" id="userinfo">
-            <span style="background-color:black;color:white;padding:5px;font-size:30px">0008888</span>
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:deepskyblue;border:none">
+    <div class="container" style="text-align:center">
+        <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
+        <span id="currentscore"style="background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:8px;float:right;margin-top:10px">0000000</span>
+        <span id="currentstreak" style="background-color:orange;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:8px;float:right;margin-top:10px;margin-right:5px">0</span>
+    </div>
+</nav>
+<body style="background-color:#EEEEEE" id="answerstatus">
+    <div class="fullscreendiv" id="fullscreenthis" style="margin:0">
+        <div id="question" hidden style="margin:0">
+            <table style="width:100%;height:80vh">
+                <tr>
+                    <td style="width:25%;padding-bottom:5px">
+                        <input type="button" class="answer answerbutton" id="a1" value="1" style="background-color:#42c5f5" />
+                    </td>
+                    <td style="width:25%;padding-left:5px;padding-bottom:5px">
+                        <input type="button" class="answer answerbutton" id="a2" value="2" style="background-color:#f54284" />
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width:25%">
+                        <input type="button" class="answer answerbutton" id="a3" value="3" style="background-color:#3ce663" />
+                    </td>
+                    <td style="width:25%;padding-left:5px">
+                        <input type="button" class="answer answerbutton" id="a4" value="4" style="background-color:#e6c73c" />
+                    </td>
+                </tr>
+            </table>
+            <div style="margin-top:15px;text-align:center" id="userinfo">
+                <span >0008888</span>
+            </div>
         </div>
-    </div>
-    <div id="login">
-        <input type="text" placeholder="Username" id="usernametouse"/>
-        <input type="button" value="Submit" id="logintoserver"/>
-    </div>
+        <div id="login" style="margin:0">
+            <input type="text" placeholder="Username" id="usernametouse"/>
+            <input type="button" value="Submit" id="logintoserver"/>
+        </div>
+        <div id="waitingothers" style="margin:0" hidden>
+            
+        </div>
+        <div id="youranswer" style="margin:0" hidden>
+            w
+        </div>
     
 
-</div>  
-
+    </div>  
+</body>
 
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -121,6 +129,10 @@
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
     var userID = "";
     var userName = "anon";
+    var currentscore = 0;
+    var currentstreak = 0;
+    var correct = false;
+    currentanswer = 0;
     $(document).ready(function () {
         userID = UUIDGenerate();
     });
@@ -131,10 +143,50 @@
         $("#question").attr("hidden", false);
         $("#login").attr("hidden", true);
     });
+    quiz.on("answerStatus", function (Score, Correct, Streak) {
+        
+        if (Correct == true) {
+            correct = true;
+        }
+        
+    });
+    quiz.on("clientScoreSend", function (Score, Streak) {
+        currentscore = Score;
+        currentstreak = Streak;
+        $("#currentstreak").html(currentstreak);
+        $("#currentscore").html(currentscore);
+        if (correct == true) {
+            $("#youranswer").css("background-color", "MediumSeaGreen")
+            $("#answerstatus").css("background-color", "MediumSeaGreen")
+        } else {
+            $("#youranswer").css("background-color", "Tomato")
+            $("#answerstatus").css("background-color", "Tomato")
+        }
+        correct = false;
+        $("#question").attr("hidden", true);
+        $("#login").attr("hidden", true);
+        $("#waitingothers").attr("hidden", true);
+        $("#youranswer").attr("hidden", false);
+    });
+    quiz.on("nextQuestion", function () {
+        $("#question").attr("hidden", false);
+        $("#login").attr("hidden", true);
+        $("#waitingothers").attr("hidden", true);
+        $("#youranswer").attr("hidden", true);
+        $("#answerstatus").css("background-color", "#EEEEEE");
+    });
     quiz.start().then(function () {
         $("#logintoserver").click(function () {
             userName = $("#usernametouse").val();
             quiz.invoke("connectToServer", userID, userName, true)
         }); 
+        $(".answerbutton").click(function () {
+            
+            currentanswer = $(this).val();
+            quiz.invoke("answerQuestion", userID, currentanswer);
+            $("#question").attr("hidden", true);
+            $("#login").attr("hidden", true);
+            $("#waitingothers").attr("hidden", false);
+        });
     });
 </script>

@@ -87,5 +87,9 @@ namespace SignalRChat.Hubs
         {
             Clients.All.SendAsync("questionTimeLeft", seconds);
         }
+        public void NextQuestion()
+        {
+            Clients.All.SendAsync("nextQuestion");
+        }
     }
 }
