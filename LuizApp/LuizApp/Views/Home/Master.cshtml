@@ -37,19 +37,24 @@
     }
 
 </style>
-<input type="button"id="checkanswer1" value="Check Answer 1" />
-<input type="button"id="checkanswer2" value="Check Answer 2" />
-<input type="button"id="checkanswer3" value="Check Answer 3" />
-<input type="button"id="checkanswer4" value="Check Answer 4" />
-<input type="button"id="advance" value="Send" />
-<input type="button"id="next" value="Next Question" />
-<span id="num1" style="background-color:black;padding:5px;color:white">0</span>
-<span id="num2" style="background-color:black;padding:5px;color:white">0</span>
-<span id="num3" style="background-color:black;padding:5px;color:white">0</span>
-<span id="num4" style="background-color:black;padding:5px;color:white">0</span>
-<span id="numcorrect" style="background-color:green;padding:5px;color:white">0</span>
-<span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
-
+<div id="questionp">
+    <input type="button" id="checkanswer1" value="Check Answer 1" />
+    <input type="button" id="checkanswer2" value="Check Answer 2" />
+    <input type="button" id="checkanswer3" value="Check Answer 3" />
+    <input type="button" id="checkanswer4" value="Check Answer 4" />
+</div>
+<div id="resultsp" style="display:none">
+    <span id="num1" style="background-color:black;padding:5px;color:white">0</span>
+    <span id="num2" style="background-color:black;padding:5px;color:white">0</span>
+    <span id="num3" style="background-color:black;padding:5px;color:white">0</span>
+    <span id="num4" style="background-color:black;padding:5px;color:white">0</span>
+    <span id="numcorrect" style="background-color:green;padding:5px;color:white">0</span>
+    <span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
+    <input type="button" id="leaderboard" value="Leaderboard" />
+</div>
+<div id="leaderboardp"  style="display:none">
+    <input type="button" id="next" value="Next Question" />
+</div>
 
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -99,22 +104,41 @@
     });
     quiz.start().then(function () {
         $("#checkanswer1").click(function () {
-            quiz.invoke("checkAnswers", 1);
+            ShowResults(1);
         });
         $("#checkanswer2").click(function () {
-            quiz.invoke("checkAnswers", 2);
+            ShowResults(2);
         });
         $("#checkanswer3").click(function () {
-            quiz.invoke("checkAnswers", 3);
+            ShowResults(3);
         });
         $("#checkanswer4").click(function () {
-            quiz.invoke("checkAnswers", 4);
-        });
-        $("#advance").click(function () {
-            quiz.invoke("viewToggle", true);
+            ShowResults(4);
         });
         $("#next").click(function () {
-            quiz.invoke("nextQuestion");
+            ShowQuestion();
         });
+        $("#leaderboard").click(function () {
+            ShowLeaderboard();
+        });
+        function ShowQuestion() {
+            $("#questionp").css("display", "inline");
+            $("#resultsp").css("display", "none");
+            $("#leaderboardp").css("display", "none");
+        }
+        function ShowResults(CorrectAnswer) {
+            quiz.invoke("nextQuestion");
+            quiz.invoke("checkAnswers", CorrectAnswer);
+            quiz.invoke("viewToggle", true);
+            $("#questionp").css("display", "none");
+            $("#resultsp").css("display", "inline");
+            $("#leaderboardp").css("display", "none");
+        }
+        function ShowLeaderboard() {
+            $("#questionp").css("display", "none");
+            $("#resultsp").css("display", "none");
+            $("#leaderboardp").css("display", "inline");
+        }
     });
+    
 </script>
