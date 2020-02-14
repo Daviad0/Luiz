@@ -34,6 +34,22 @@
         padding:0;
         margin:0;
     }
+    .userinput {
+        background-color:#EEEEEE;
+        color:gray;
+        border:none;
+        border:4px solid gray;
+        border-radius:2px;
+        font-size:30px;
+        padding:10px;
+        transition: 0.5s;
+        -webkit-transition: 0.5s;
+    }
+        .userinput:focus {
+            border: 4px solid #03b1fc;
+            color: #03b1fc;
+            transition: 0.5s;
+        }
 </style>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
@@ -67,9 +83,10 @@
                 <span >0008888</span>
             </div>
         </div>
-        <div id="login" style="margin:0">
-            <input type="text" placeholder="Username" id="usernametouse"/>
-            <input type="button" value="Submit" id="logintoserver"/>
+        <div id="login" style="margin-top:27vh;text-align:center">
+            <input type="text" placeholder="Username" id="usernametouse" class="userinput" style="margin-bottom:10px"/>
+            <br />
+            <input type="button" value="Submit" id="logintoserver" class="btn btn-success" style="font-size:20px;border:none;background-color:#035afc" disabled/>
         </div>
         <div id="waitingothers" style="margin:0" hidden>
             
@@ -176,6 +193,11 @@
         $("#answerstatus").css("background-color", "#EEEEEE");
     });
     quiz.start().then(function () {
+        $("#usernametouse").on("change", function () {
+            if ($("#usernametouse").val != "") {
+                $("#logintoserver").attr("disabled", false);
+            }
+        });
         $("#logintoserver").click(function () {
             userName = $("#usernametouse").val();
             quiz.invoke("connectToServer", userID, userName, true)

@@ -37,25 +37,146 @@
     }
 
 </style>
-<div id="questionp">
-    <input type="button" id="checkanswer1" value="Check Answer 1" />
-    <input type="button" id="checkanswer2" value="Check Answer 2" />
-    <input type="button" id="checkanswer3" value="Check Answer 3" />
-    <input type="button" id="checkanswer4" value="Check Answer 4" />
-</div>
-<div id="resultsp" style="display:none">
-    <span id="num1" style="background-color:black;padding:5px;color:white">0</span>
-    <span id="num2" style="background-color:black;padding:5px;color:white">0</span>
-    <span id="num3" style="background-color:black;padding:5px;color:white">0</span>
-    <span id="num4" style="background-color:black;padding:5px;color:white">0</span>
-    <span id="numcorrect" style="background-color:green;padding:5px;color:white">0</span>
-    <span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
-    <input type="button" id="leaderboard" value="Leaderboard" />
-</div>
-<div id="leaderboardp"  style="display:none">
-    <input type="button" id="next" value="Next Question" />
-</div>
-
+<nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
+    <div class="container" style="text-align:center">
+        <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
+        
+    </div>
+</nav>
+<div style="margin-top:20px">
+    <div id="questionp">
+        <br />
+        <br />
+        <table style="position: absolute; top: 8vh; bottom: 0; left: 0; right: 0;width:100%">
+            <tr>
+                <td style="width:10%;overflow:hidden;background-color:white;border:4px solid lightgray;border-radius:6px 0px 0px 6px">
+                    <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:gray">Q</span>
+                </td>
+                <td style="width:90%;text-wrap:inherit;padding:30px;background-color:lightgray;border:4px solid lightgray;border-radius:0px 6px 6px 0px">
+                    <span style="font-size:30px;vertical-align:text-bottom;font-family:Georgia, 'Times New Roman', Times, serif">What is 1 + 1?</span>
+                </td>
+            </tr>
+        </table>
+        <table style="width:100%;border-spacing:0 15px;border-collapse:separate;margin-top:15vh">
+            
+            <tr>
+                <td style="width:10%;overflow:hidden;background-color:white;border:4px solid #42c5f5;border-radius:6px 0px 0px 6px">
+                    <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:#42c5f5">1</span>
+                </td>
+                <td style="width:90%;text-wrap:inherit;padding:30px;background-color:#42c5f5;border:4px solid #42c5f5;border-radius:0px 6px 6px 0px">
+                    <span style="font-size:30px;vertical-align:text-bottom;font-family:Georgia, 'Times New Roman', Times, serif">1</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:10%;overflow:hidden;background-color:white;border:4px solid #f54284;border-radius:6px 0px 0px 6px">
+                    <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:#f54284">2</span>
+                </td>
+                <td style="width:90%;text-wrap:inherit;padding:30px;background-color:#f54284;border:4px solid #f54284;border-radius:0px 6px 6px 0px">
+                    <span style="font-size:30px;vertical-align:text-bottom;font-family:Georgia, 'Times New Roman', Times, serif">2</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:10%;overflow:hidden;background-color:white;border:4px solid #3ce663;border-radius:6px 0px 0px 6px">
+                    <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:#3ce663">3</span>
+                </td>
+                <td style="width:90%;text-wrap:inherit;padding:30px;background-color:#3ce663;border:4px solid #3ce663;border-radius:0px 6px 6px 0px">
+                    <span style="font-size:30px;vertical-align:text-bottom;font-family:Georgia, 'Times New Roman', Times, serif">5</span>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:10%;overflow:hidden;background-color:white;border:4px solid #e6c73c;border-radius:6px 0px 0px 6px">
+                    <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:#e6c73c">4</span>
+                </td>
+                <td style="width:90%;text-wrap:inherit;padding:30px;background-color:#e6c73c;border:4px solid #e6c73c;border-radius:0px 6px 6px 0px">
+                    <span style="font-size:30px;vertical-align:text-bottom;font-family:Georgia, 'Times New Roman', Times, serif">The answer is triangle!</span>
+                </td>
+            </tr>
+        </table>
+        <table width="100%">
+            <tr>
+                <td style="width:25%">
+                    <input id="checkanswer1" value="Check #1" type="button"/>
+                </td>
+                <td style="width:25%">
+                    <input id="checkanswer2" value="Check #2" type="button"/>
+                </td>
+                <td style="width:25%">
+                    <input id="checkanswer3" value="Check #3" type="button"/>
+                </td>
+                <td style="width:25%">
+                    <input id="checkanswer4" value="Check #4" type="button"/>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div id="resultsp" style="display:none">
+        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
+            <tr>
+                <td style="width:10%;color:#42c5f5">
+                    <span id="num1l" style="font-weight:900;font-size:50px;text-align:center">1</span>
+                </td>
+                <td id="num1c" style="width:90%;background-color:#42c5f5;color:white;border-radius:8px">
+                    <span id="num1" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
+                </td>
+                <td id="num1w" style="width:0%;background-color:white;color:white">
+                    <span style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh"></span>
+                </td>
+                
+            </tr>
+            </table>
+        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
+            <tr>
+                
+                <td style="width:10%;color:#f54284">
+                    <span id="num2l" style="font-weight:900;font-size:50px;text-align:center">2</span>
+                </td>
+                <td id="num2c" style="width:90%;background-color:#f54284;color:white;border-radius:8px">
+                    <span id="num2" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
+                </td>
+                <td id="num2w" style="width:0%;background-color:white;color:white">
+                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
+                </td>
+                
+            </tr>
+            </table>
+        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
+            <tr>
+                <td style="width:10%;color:#3ce663">
+                    <span id="num3l" style="font-weight:900;font-size:50px;text-align:center">3</span>
+                </td>
+                <td id="num3c" style="width:90%;background-color:#3ce663;color:white;border-radius:8px">
+                    <span id="num3" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
+                </td>
+                <td id="num3w" style="width:0%;background-color:white;color:white">
+                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
+                </td>
+            </tr>
+            </table>
+        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
+            <tr>
+                <td style="width:10%;color:#e6c73c">
+                    <span id="num4l" style="font-weight:900;font-size:50px;text-align:center">4</span>
+                </td>
+                <td id="num4c" style="width:90%;background-color:#e6c73c;color:white;border-radius:8px">
+                    <span id="num4" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
+                </td>
+                <td id="num4w" style="width:0%;background-color:white;color:white">
+                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
+                </td>
+            </tr>
+        </table>
+        <span id="num1" style="background-color:black;padding:5px;color:white">0</span>
+        <span id="num2" style="background-color:black;padding:5px;color:white">0</span>
+        <span id="num3" style="background-color:black;padding:5px;color:white">0</span>
+        <span id="num4" style="background-color:black;padding:5px;color:white">0</span>
+        <span id="numcorrect" style="background-color:green;padding:5px;color:white">0</span>
+        <span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
+        <input type="button" id="leaderboard" value="Leaderboard" />
+    </div>
+    <div id="leaderboardp"  style="display:none">
+        <input type="button" id="next" value="Next Question" />
+    </div>
+    </div>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
@@ -93,6 +214,7 @@
     });
 </script>
 <script>
+    var CurrentCorrect = 0;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
@@ -101,6 +223,33 @@
         $("#num2").html(Num2);
         $("#num3").html(Num3);
         $("#num4").html(Num4);
+        var totalanswers = Num1 + Num2 + Num3 + Num4
+        if (totalanswers == 0) {
+            totalanswers = 1
+        }
+        num1percent = ((Num1 / totalanswers)*90)
+        num2percent = ((Num2 / totalanswers)*90)
+        num3percent = ((Num3 / totalanswers)*90)
+        num4percent = ((Num4 / totalanswers) * 90)
+        $("#num1c").css("width", num1percent + "%")
+        $("#num2c").css("width", num2percent + "%")
+        $("#num3c").css("width", num3percent + "%")
+        $("#num4c").css("width", num4percent + "%")
+        $("#num1w").css("width", (90-num1percent) + "%")
+        $("#num2w").css("width", (90-num2percent) + "%")
+        $("#num3w").css("width", (90-num3percent) + "%")
+        $("#num4w").css("width", (90 - num4percent) + "%")
+        $("#num1c").css("background-color", "gray")
+        $("#num2c").css("background-color", "gray")
+        $("#num3c").css("background-color", "gray")
+        $("#num4c").css("background-color", "gray")
+        $("#num1l").css("color", "gray")
+        $("#num2l").css("color", "gray")
+        $("#num3l").css("color", "gray")
+        $("#num4l").css("color", "gray")
+        $("#num" + CurrentCorrect + "c").css("background-color", "green")
+        $("#num" + CurrentCorrect + "l").css("color", "green")
+
     });
     quiz.start().then(function () {
         $("#checkanswer1").click(function () {
@@ -125,11 +274,13 @@
             $("#questionp").css("display", "inline");
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "none");
+            quiz.invoke("nextQuestion");
         }
         function ShowResults(CorrectAnswer) {
             quiz.invoke("nextQuestion");
             quiz.invoke("checkAnswers", CorrectAnswer);
             quiz.invoke("viewToggle", true);
+            CurrentCorrect = CorrectAnswer;
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "inline");
             $("#leaderboardp").css("display", "none");
