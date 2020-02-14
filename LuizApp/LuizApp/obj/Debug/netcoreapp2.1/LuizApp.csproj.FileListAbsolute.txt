@@ -111,3 +111,4 @@ C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.dll
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.pdb
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.csproj.CopyComplete
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.csprojAssemblyReference.cache
