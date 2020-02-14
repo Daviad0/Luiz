@@ -34,6 +34,17 @@
         padding:0;
         margin:0;
     }
+    .aninput{
+        padding: 5px;
+        background-color: none;
+        border: none;
+        border-bottom: 4px solid #035afc;
+        color: black;
+        border-radius:2px;
+    }
+        .aninput:focus {
+            border-bottom: 4px solid #03b1fc;
+        }
 </style>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
@@ -68,9 +79,10 @@
             </div>
         </div>
         <div id="login" style="margin:0">
-            <div style="top:27vh">
-                <input type="text" placeholder="Username" id="usernametouse" />
-                <input type="button" value="Submit" id="logintoserver" class="btn " />
+            <div style="margin-top:27vh;text-align:center">
+                <input type="text" placeholder="Username" id="usernametouse" style="padding:5px;font-size:40px" class="aninput" />
+                <br />
+                <input type="button" value="Submit" id="logintoserver" class="btn" style="padding:5px;font-size:40px" />
             </div>
             
         </div>
