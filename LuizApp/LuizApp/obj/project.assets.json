@@ -11811,8 +11811,12 @@
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
+<<<<<<< HEAD
+        "/Users/daviado/.config/NuGet/NuGet.Config"
+=======
         "C:\\Users\\djree\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+>>>>>>> master
       ],
       "originalTargetFrameworks": [
         "netcoreapp2.1"

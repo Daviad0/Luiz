@@ -3,9 +3,9 @@
     <Files>
       <File FileName="LuizApp/QuizHub.cs" Line="123" Column="2" />
       <File FileName="LuizApp/Controllers/HomeController.cs" />
-      <File FileName="LuizApp/Views/Home/Client.cshtml" Line="58" Column="40" />
+      <File FileName="LuizApp/Views/Home/Client.cshtml" />
       <File FileName="LuizApp/Views/Shared/_Layout.cshtml" Line="9" Column="80" />
-      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="130" Column="20" />
+      <File FileName="LuizApp/Views/Home/Master.cshtml" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
