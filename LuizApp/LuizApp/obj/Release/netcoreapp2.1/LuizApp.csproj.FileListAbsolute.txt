@@ -36,3 +36,13 @@ C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Release\netcoreapp2.1\LuizA
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Release\netcoreapp2.1\LuizApp.dll
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Release\netcoreapp2.1\LuizApp.pdb
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Release\netcoreapp2.1\LuizApp.csproj.CopyComplete
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\css\site.css
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\images\banner1.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\images\banner2.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\images\banner3.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\bootstrap\dist\js\npm.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\font-awesome\css\all.css
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\font-awesome\js\all.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\jquery\dist\jquery.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Release\netcoreapp2.1\wwwroot\lib\signalr\dist\browser\signalr.js

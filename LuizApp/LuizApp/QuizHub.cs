@@ -24,6 +24,7 @@ namespace SignalRChat.Hubs
                     newUser.Locked = false;
                     newUser.TimeSubmitted = 0;
                     newUser.Streak = 0;
+                    newUser.UserName = UserName;
                     GameServer.Add(UserID, newUser);
                 }
                 else
@@ -109,6 +110,25 @@ namespace SignalRChat.Hubs
             }
             Clients.All.SendAsync("toggleScore", ReviewScore);
             
+        }
+        public void GetLeaderboard()
+        {
+            int i = 0;
+            var PreviousUser = new GameServerConnection();
+            var TopTen = new List<GameServerConnection>();
+            var Behind = false;
+            foreach(var item in GameServer.OrderByDescending(c => c.Value.Points).ThenByDescending(c => c.Value.Streak).ThenBy(c => c.Value.UserName))
+            {
+                i++;
+                if(i <= 10)
+                {
+                    TopTen.Add(item.Value);
+                }
+                Clients.Client(item.Value.ConnectionId).SendAsync("placement", i, Behind, PreviousUser);
+                PreviousUser = item.Value;
+                Behind = true;
+            }
+            Clients.All.SendAsync("sendLeaderboard", TopTen);
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)

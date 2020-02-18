@@ -34,6 +34,10 @@ namespace LuizApp
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            services.Configure<IISOptions>(options =>
+            {
+                options.ForwardClientCertificate = false;
+            });
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
@@ -54,11 +58,19 @@ namespace LuizApp
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
+                app.UseSignalR(routes =>
+                {
+                    routes.MapHub<QuizHub>("/quizHub");
+                });
             }
             else
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+                app.UseSignalR(routes =>
+                {
+                    routes.MapHub<QuizHub>("/quizHub");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -66,10 +78,7 @@ namespace LuizApp
             app.UseCookiePolicy();
 
             app.UseAuthentication();
-            app.UseSignalR(routes =>
-            {
-                routes.MapHub<QuizHub>("/quizHub");
-            });
+            
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

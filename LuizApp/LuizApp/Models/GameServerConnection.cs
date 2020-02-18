@@ -8,6 +8,7 @@ namespace LuizApp.Models
     public class GameServerConnection
     {
         public string ConnectionId { get; set; }
+        public string UserName { get; set; }
         public int Points { get; set; }
         public int LastAnswer { get; set; }
         public int TimeSubmitted { get; set; }

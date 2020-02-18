@@ -39,3 +39,13 @@ C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\linux-a
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\linux-arm\LuizApp.dll
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\linux-arm\LuizApp.pdb
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\linux-arm\LuizApp.csproj.CopyComplete
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\css\site.css
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\images\banner1.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\images\banner2.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\images\banner3.svg
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\bootstrap\dist\js\bootstrap.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\bootstrap\dist\js\npm.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\font-awesome\css\all.css
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\font-awesome\js\all.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\jquery\dist\jquery.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\linux-arm\wwwroot\lib\signalr\dist\browser\signalr.js
