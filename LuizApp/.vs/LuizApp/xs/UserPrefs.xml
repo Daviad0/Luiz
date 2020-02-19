@@ -25,11 +25,6 @@
                   <Node name="jquery" expanded="True">
                     <Node name="dist" expanded="True" />
                   </Node>
-                  <Node name="signalr" expanded="True">
-                    <Node name="dist" expanded="True">
-                      <Node name="browser" expanded="True" />
-                    </Node>
-                  </Node>
                 </Node>
               </Node>
             </Node>
