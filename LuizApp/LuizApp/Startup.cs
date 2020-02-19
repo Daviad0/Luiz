@@ -73,7 +73,6 @@ namespace LuizApp
                 });
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 

@@ -122,3 +122,5 @@ C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot\lib\font-awesome\js\all.js
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot\lib\jquery\dist\jquery.js
 C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot\lib\signalr\dist\browser\signalr.js
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot\lib\loading-bar\dist\loading-bar.css
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\bin\Debug\netcoreapp2.1\wwwroot\lib\loading-bar\dist\loading-bar.js

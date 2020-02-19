@@ -35,7 +35,18 @@
         display: inline-block;
         border:4px solid gray
     }
-
+    .rank1leaderboard {
+        background: rgb(240,126,84);
+        background: linear-gradient(135deg, rgba(240,126,84,1) 0%, rgba(240,217,84,1) 100%);
+    }
+    .rank23leaderboard {
+        background: rgb(84,168,240);
+        background: linear-gradient(135deg, rgba(84,168,240,1) 0%, rgba(84,240,170,1) 100%);
+    }
+    .rank4567leaderboard {
+        background: rgb(106,106,106);
+        background: linear-gradient(135deg, rgba(106,106,106,1) 0%, rgba(214,214,214,1) 100%);
+    }
 </style>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
@@ -173,12 +184,50 @@
         <span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
         <input type="button" id="leaderboard" value="Leaderboard" />
     </div>
-    <div id="leaderboardp"  style="display:none">
+    <div id="leaderboardp"  style="display:none;text-align:center">
         <br />
         <br />
-        <table id="userleaderboard">
-            
-        </table>
+        <div class="rank1leaderboard" style="border-radius:10px;padding:20px;display:flex;justify-content:space-between">
+            <span style="font-size:50px;color:white;font-weight:600">1</span>
+            <span style="font-size:50px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:50px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">2000</span>
+        </div>
+        <br />
+        <div class="rank23leaderboard" style="border-radius:10px;padding:15px;display:flex;justify-content:space-between">
+            <span style="font-size:30px;color:white;font-weight:600">2</span>
+            <span style="font-size:30px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:30px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
+        <br />
+        <div class="rank23leaderboard" style="border-radius:10px;padding:15px;display:flex;justify-content:space-between">
+            <span style="font-size:30px;color:white;font-weight:600">2</span>
+            <span style="font-size:30px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:30px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
+        <br />
+        <div class="rank4567leaderboard" style="border-radius:10px;padding:12px;display:flex;justify-content:space-between">
+            <span style="font-size:25px;color:white;font-weight:600">2</span>
+            <span style="font-size:25px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:25px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
+        <br />
+        <div class="rank4567leaderboard" style="border-radius:10px;padding:12px;display:flex;justify-content:space-between">
+            <span style="font-size:25px;color:white;font-weight:600">2</span>
+            <span style="font-size:25px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:25px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
+        <br />
+        <div class="rank4567leaderboard" style="border-radius:10px;padding:12px;display:flex;justify-content:space-between">
+            <span style="font-size:25px;color:white;font-weight:600">2</span>
+            <span style="font-size:25px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:25px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
+        <br />
+        <div class="rank4567leaderboard" style="border-radius:10px;padding:12px;display:flex;justify-content:space-between">
+            <span style="font-size:25px;color:white;font-weight:600">2</span>
+            <span style="font-size:25px;color:white;font-weight:600">Daviado</span>
+            <span style="font-size:25px;color:white;font-weight:600;border-radius:4px;vertical-align:middle">1999</span>
+        </div>
         <input type="button" id="next" value="Next Question" />
     </div>
     </div>
@@ -259,11 +308,11 @@
     quiz.on("sendLeaderboard", function (TopTen) {
         $("#userleaderboard").empty();
         $.each(TopTen, function (index, value) {
-                var markup = "<tr style='text-align:center;padding-left:5px'><td style='text-align:left'>" + (index + 1) +
-                    "</td><td width='30%' style='text-align:center'>" + value.UserName + "</td><td' style='text-align:center'>" +
-                    value.Points + "</td><td style='text-align:center'>" +
-                    value.Streak + "</td></tr>";
-                $("#userleaderboard").append(markup);
+                /*var markup = "<tr style='text-align:center;background-color:red'><td width='30%' style='text-align:center'>" +
+                    value.userName + "</td><td style='background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px 0px 0px 4px'>" +
+                        value.points + "</td><td style='background-color:#03b1fc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:0px 4px 4px 0px'>" +
+                        value.streak + "</td></tr>";
+                $("#userleaderboard").append(markup);*/
             });
     });
     quiz.start().then(function () {
@@ -304,6 +353,7 @@
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "inline");
+            quiz.invoke("getLeaderboard");
         }
     });
     

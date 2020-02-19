@@ -23,8 +23,7 @@ namespace LuizApp
                 .UseStartup<Startup>()
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
-                .UseIISIntegration()
-                .UseSetting("https_port", "443");
+                .UseIISIntegration();
 
 
     }
