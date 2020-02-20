@@ -9,9 +9,10 @@ namespace SignalRChat.Hubs
     public class QuizHub : Hub
     {
         private static int Timeleft = 0;
+        private static Dictionary<string,string> Instances = new System.Collections.Generic.Dictionary<string, string>();
         private static Dictionary<string,GameServerConnection> GameServer = new System.Collections.Generic.Dictionary<string, GameServerConnection>();
         //CLIENT > SERVER
-        public void ConnectToServer(string UserID, string UserName, bool Connected)
+        public void ConnectToServer(string UserID, string UserName, bool Connected, string GameKey)
         {
             if (Connected)
             {
@@ -25,7 +26,9 @@ namespace SignalRChat.Hubs
                     newUser.TimeSubmitted = 0;
                     newUser.Streak = 0;
                     newUser.UserName = UserName;
+                    newUser.GameKey = GameKey;
                     GameServer.Add(UserID, newUser);
+                    
                 }
                 else
                 {
@@ -129,6 +132,13 @@ namespace SignalRChat.Hubs
                 Behind = true;
             }
             Clients.All.SendAsync("sendLeaderboard", TopTen);
+        }
+        public void InstanceCreate(string GeneratedKey)
+        {
+            if (!Instances.ContainsKey(GeneratedKey))
+            {
+
+            }
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)

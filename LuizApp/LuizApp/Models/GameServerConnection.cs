@@ -14,6 +14,7 @@ namespace LuizApp.Models
         public int TimeSubmitted { get; set; }
         public int Streak { get; set; }
         public bool Locked { get; set; }
+        public string GameKey { get; set; }
 
     }
 }
