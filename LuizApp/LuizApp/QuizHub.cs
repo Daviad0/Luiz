@@ -35,6 +35,7 @@ namespace SignalRChat.Hubs
                     GameServer[UserID].ConnectionId = Context.ConnectionId;
                 }
                 Clients.Client(Context.ConnectionId).SendAsync("signedIn");
+                Clients.Client(Instances.Where(p => p.Key == GameKey).FirstOrDefault().Value).SendAsync("newUserLogin", UserName);
             }
         }
         public void AnswerQuestion(string UserID, int Answer)
@@ -137,7 +138,12 @@ namespace SignalRChat.Hubs
         {
             if (!Instances.ContainsKey(GeneratedKey))
             {
-
+                Instances.Add(GeneratedKey, Context.ConnectionId);
+                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", true);
+            }
+            else
+            {
+                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", false);
             }
         }
         //MASTER > CLIENT
