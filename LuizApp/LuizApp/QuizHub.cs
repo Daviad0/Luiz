@@ -139,11 +139,11 @@ namespace SignalRChat.Hubs
             if (!Instances.ContainsKey(GeneratedKey))
             {
                 Instances.Add(GeneratedKey, Context.ConnectionId);
-                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", true);
+                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", true, GeneratedKey);
             }
             else
             {
-                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", false);
+                Clients.Client(Context.ConnectionId).SendAsync("gameCreated", false, GeneratedKey);
             }
         }
         //MASTER > CLIENT

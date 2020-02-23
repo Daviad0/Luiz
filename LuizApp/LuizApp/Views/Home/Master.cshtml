@@ -54,8 +54,13 @@
 </nav>
 <div style="margin-top:20px">
     <div id="loginscreen" style="text-align:center">
-        <div style="background-color:lightblue;font-size:60px;font-weight:600;padding:10px;border-radius:10px">
-            Game Key: <span id="gamecode">[UNAVAIL]</span>
+        <div style="background-color:#03b1fc;font-size:60px;font-weight:600;padding:10px;border-radius:10px;color:white;display:flex;justify-content:space-between">
+            <div>
+                Game Key: <br /><span id="gamecode" style="color:#03b1fc;background-color:white;padding:10px;border-radius:8px;font-size:90px">[UNAVAIL]</span><span id="gameerror" style="margin-left:10px">&#9888;</span>
+            </div>
+            <div>
+                Contestants: <br /><span id="numplayers" style="color:#00ed7a;background-color:white;padding:10px;border-radius:8px;font-size:90px">0</span>
+            </div>
         </div>
     </div>
     <div id="questionp" style="display:none">
@@ -271,8 +276,10 @@
     });
 </script>
 <script>
+    var GameKey = 0;
     var CurrentCorrect = 0;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
+    
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
         $("#numwrong").html(Wrong);
@@ -319,6 +326,10 @@
             });
     });
     quiz.start().then(function () {
+        $(document).ready(function () {
+            GameKey = Math.floor((Math.random() * 1000000) + 1);
+            quiz.invoke("instanceCreate", GameKey);
+        });
         $("#checkanswer1").click(function () {
             ShowResults(1);
         });
@@ -336,6 +347,16 @@
         });
         $("#leaderboard").click(function () {
             ShowLeaderboard();
+        });
+        quiz.on("gameCreated", function (Successful, GameKeySent) {
+            if (!Successful) {
+                GameKey = Math.floor((Math.random() * 1000000) + 1);
+                quiz.invoke("instanceCreate", GameKey);
+                $("#gameerror").css("background-color", "red")
+            } else {
+                $("#gamecode").html(GameKeySent)
+                $("#gameerror").css("display","none")
+            }
         });
         function ShowQuestion() {
             $("#questionp").css("display", "inline");
