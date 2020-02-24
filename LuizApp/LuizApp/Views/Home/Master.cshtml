@@ -62,7 +62,9 @@
                 Contestants: <br /><span id="numplayers" style="color:#00ed7a;background-color:white;padding:10px;border-radius:8px;font-size:90px">0</span>
             </div>
         </div>
+        <input type="button" id="startgame" value="GO!" />
     </div>
+    
     <div id="questionp" style="display:none">
         <br />
         <br />
@@ -127,6 +129,7 @@
                 </td>
             </tr>
         </table>
+        <span id="secondsleft" style="text-align:center;padding:10px;font-size:30px;background-color:#03b1fc;color:white"></span>
     </div>
     <div id="resultsp" style="display:none">
         <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
@@ -278,6 +281,8 @@
 <script>
     var GameKey = 0;
     var CurrentCorrect = 0;
+    var Timer = 0;
+    var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
     
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
@@ -348,6 +353,10 @@
         $("#leaderboard").click(function () {
             ShowLeaderboard();
         });
+        $("#startgame").click(function () {
+            $("#loginscreen").css("display", "none")
+            ShowQuestion();
+        });
         quiz.on("gameCreated", function (Successful, GameKeySent) {
             if (!Successful) {
                 GameKey = Math.floor((Math.random() * 1000000) + 1);
@@ -363,12 +372,16 @@
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "none");
             quiz.invoke("nextQuestion");
+            Timer = 30;
+            setTimeout(Countdown, 1000);
+            QuestionEnabled = true;
         }
         function ShowResults(CorrectAnswer) {
             quiz.invoke("nextQuestion");
             quiz.invoke("checkAnswers", CorrectAnswer);
             quiz.invoke("viewToggle", true);
             CurrentCorrect = CorrectAnswer;
+            QuestionEnabled = false;
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "inline");
             $("#leaderboardp").css("display", "none");
@@ -380,7 +393,15 @@
             quiz.invoke("getLeaderboard");
         }
         function Countdown() {
-
+            Timer = Timer - 1;
+            if (Timer > 0 && QuestionEnabled == true) {
+                $("#secondsleft").html(Timer)
+                setTimeout(Countdown, 1000);
+                
+            } else {
+                ShowResults(1)
+            }
+            
         }
     });
     
