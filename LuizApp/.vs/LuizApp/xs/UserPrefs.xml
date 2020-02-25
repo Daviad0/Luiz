@@ -2,9 +2,9 @@
   <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/Views/Home/Master.cshtml">
     <Files>
       <File FileName="LuizApp/Views/Home/Master.cshtml" Line="389" Column="37" />
-      <File FileName="LuizApp/Views/Home/Index.cshtml" Line="1" Column="1" />
-      <File FileName="LuizApp/Startup.cs" Line="1" Column="1" />
-      <File FileName="LuizApp/Models/GameServerConnection.cs" Line="17" Column="44" />
+      <File FileName="LuizApp/Views/Home/Index.cshtml" />
+      <File FileName="LuizApp/Startup.cs" />
+      <File FileName="LuizApp/Models/GameServerConnection.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
