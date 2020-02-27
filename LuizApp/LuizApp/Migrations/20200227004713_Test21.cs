@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace LuizApp.Data.Migrations
+namespace LuizApp.Migrations
 {
-    public partial class Initial : Migration
+    public partial class Test21 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

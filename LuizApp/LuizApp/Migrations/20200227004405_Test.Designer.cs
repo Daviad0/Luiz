@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LuizApp.Migrations
 {
     [DbContext(typeof(QuizContext))]
-    [Migration("20200207231558_Initial")]
-    partial class Initial
+    [Migration("20200227004405_Test")]
+    partial class Test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
