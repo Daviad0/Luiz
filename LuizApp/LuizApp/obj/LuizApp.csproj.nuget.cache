@@ -1,5 +1,9 @@
 {
   "version": 1,
+<<<<<<< HEAD
   "dgSpecHash": "pDg5Slv2DhNSQPbcMfn51MimeTeHpSfaRHY09IxpRm/yRgYvE/Tu4MLTFgez5p56ToGQ5T9C78ffGrlhKo2b0A==",
+=======
+  "dgSpecHash": "HDpu+y0l1azLYBK6b7Qg72jceiMzB5Ec8H/4lKEO8Rg03PMhAAYKTzhyHDKOWZCyVIxMIaumTBSbft6Bd+OcCg==",
+>>>>>>> master
   "success": true
 }

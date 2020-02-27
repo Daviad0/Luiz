@@ -62,7 +62,9 @@
                 Contestants: <br /><span id="numplayers" style="color:#00ed7a;background-color:white;padding:10px;border-radius:8px;font-size:90px">0</span>
             </div>
         </div>
+        <input type="button" id="startgame" value="GO!" />
     </div>
+    
     <div id="questionp" style="display:none">
         <br />
         <br />
@@ -127,69 +129,36 @@
                 </td>
             </tr>
         </table>
+        <div style="text-align:center">
+            <span id="secondsleft" style="text-align:center;padding:10px;font-size:30px;background-color:#03b1fc;color:white"></span>
+        </div>
+        
     </div>
     <div id="resultsp" style="display:none">
-        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
+        <br />
+        <div style="text-align:center">
+            <div style="background-color:green;color:white;padding:10px;border-radius:8px 8px 0px 0px">
+                <span style="font-size:80px"><span id="numcorrect" class="resultnumbers" style="font-weight:700">0</span>%</span>
+            </div>
+
+        </div>
+        <table style="width:100%;font-size:70px;text-align:center;font-weight:600">
             <tr>
-                <td style="width:10%;color:#42c5f5">
-                    <span id="num1l" style="font-weight:900;font-size:50px;text-align:center">1</span>
+                <td style="width:25%;margin-right:10px;background-color:#cccccc;color:white" class="num1c">
+                    #1 <span id="num1" style="background-color:white;color:#cccccc;padding-left:5px;padding-right:5px;border-radius:6px">0</span>
                 </td>
-                <td id="num1c" style="width:90%;background-color:#42c5f5;color:white;border-radius:8px">
-                    <span id="num1" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
+                <td style="width:25%;margin-right:10px;background-color:#cccccc;color:white" class="num2c">
+                    #2 <span id="num2" style="background-color:white;color:#cccccc;padding-left:5px;padding-right:5px;border-radius:6px">0</span>
                 </td>
-                <td id="num1w" style="width:0%;background-color:white;color:white">
-                    <span style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh"></span>
+                <td style="width:25%;margin-right:10px;background-color:green;color:white" class="num3c">
+                    #3 <span id="num3" style="background-color:white;color:green;padding-left:5px;padding-right:5px;border-radius:6px">0</span>
                 </td>
-                
-            </tr>
-            </table>
-        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
-            <tr>
-                
-                <td style="width:10%;color:#f54284">
-                    <span id="num2l" style="font-weight:900;font-size:50px;text-align:center">2</span>
-                </td>
-                <td id="num2c" style="width:90%;background-color:#f54284;color:white;border-radius:8px">
-                    <span id="num2" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
-                </td>
-                <td id="num2w" style="width:0%;background-color:white;color:white">
-                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
-                </td>
-                
-            </tr>
-            </table>
-        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
-            <tr>
-                <td style="width:10%;color:#3ce663">
-                    <span id="num3l" style="font-weight:900;font-size:50px;text-align:center">3</span>
-                </td>
-                <td id="num3c" style="width:90%;background-color:#3ce663;color:white;border-radius:8px">
-                    <span id="num3" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
-                </td>
-                <td id="num3w" style="width:0%;background-color:white;color:white">
-                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
-                </td>
-            </tr>
-            </table>
-        <table style="width:100%;text-align:center;border-spacing:0 15px;border-collapse:separate">
-            <tr>
-                <td style="width:10%;color:#e6c73c">
-                    <span id="num4l" style="font-weight:900;font-size:50px;text-align:center">4</span>
-                </td>
-                <td id="num4c" style="width:90%;background-color:#e6c73c;color:white;border-radius:8px">
-                    <span id="num4" style="font-weight:700;font-size:40px;text-align:center;padding-top:0vh">0</span>
-                </td>
-                <td id="num4w" style="width:0%;background-color:white;color:white">
-                    <span style="font-weight:900;font-size:40px;text-align:center;padding-top:0vh"></span>
+                <td style="width:25%;margin-right:10px;background-color:#cccccc;color:white" class="num4c">
+                    #4 <span id="num4" style="background-color:white;color:#cccccc;padding-left:5px;padding-right:5px;border-radius:6px">0</span>
                 </td>
             </tr>
         </table>
-        <span id="num1" style="background-color:black;padding:5px;color:white">0</span>
-        <span id="num2" style="background-color:black;padding:5px;color:white">0</span>
-        <span id="num3" style="background-color:black;padding:5px;color:white">0</span>
-        <span id="num4" style="background-color:black;padding:5px;color:white">0</span>
-        <span id="numcorrect" style="background-color:green;padding:5px;color:white">0</span>
-        <span id="numwrong" style="background-color:red;padding:5px;color:white">0</span>
+        
         <input type="button" id="leaderboard" value="Leaderboard" />
     </div>
     <div id="leaderboardp"  style="display:none;text-align:center">
@@ -278,6 +247,8 @@
 <script>
     var GameKey = 0;
     var CurrentCorrect = 0;
+    var Timer = 0;
+    var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
     
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
@@ -348,6 +319,10 @@
         $("#leaderboard").click(function () {
             ShowLeaderboard();
         });
+        $("#startgame").click(function () {
+            $("#loginscreen").css("display", "none")
+            ShowQuestion();
+        });
         quiz.on("gameCreated", function (Successful, GameKeySent) {
             if (!Successful) {
                 GameKey = Math.floor((Math.random() * 1000000) + 1);
@@ -363,25 +338,43 @@
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "none");
             quiz.invoke("nextQuestion");
+            Timer = 30;
+            $("#secondsleft").html(Timer)
+            setTimeout(Countdown, 1000);
+            QuestionEnabled = true;
         }
         function ShowResults(CorrectAnswer) {
             quiz.invoke("nextQuestion");
             quiz.invoke("checkAnswers", CorrectAnswer);
             quiz.invoke("viewToggle", true);
             CurrentCorrect = CorrectAnswer;
+            QuestionEnabled = false;
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "inline");
             $("#leaderboardp").css("display", "none");
+            
+        
+            
         }
         function ShowLeaderboard() {
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "inline");
             quiz.invoke("getLeaderboard");
+            
         }
         function Countdown() {
-
+            Timer = Timer - 1;
+            if (Timer > 0 && QuestionEnabled == true) {
+                
+                setTimeout(Countdown, 1000);
+                $("#secondsleft").html(Timer)
+            } else {
+                ShowResults(1)
+            }
+            
         }
+        
     });
     
 </script>

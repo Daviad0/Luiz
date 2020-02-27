@@ -64,6 +64,7 @@ using LuizApp.Models;
         #pragma warning disable 1998
         public async override global::System.Threading.Tasks.Task ExecuteAsync()
         {
+<<<<<<< HEAD
             BeginContext(0, 224, false);
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f30ff5cd8c224a9db0adf1a31040060d", async() => {
                 BeginContext(35, 6, true);
@@ -71,6 +72,15 @@ using LuizApp.Models;
                 EndContext();
                 BeginContext(41, 71, false);
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ca02768470914bb89821afb3ca8ee3e3", async() => {
+=======
+            BeginContext(0, 221, false);
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "118679defdb7497bb0e4f6caab37f1b4", async() => {
+                BeginContext(35, 5, true);
+                WriteLiteral("\n    ");
+                EndContext();
+                BeginContext(40, 71, false);
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "00b1153f00c94260aa2d993a61b69a04", async() => {
+>>>>>>> master
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -87,8 +97,13 @@ using LuizApp.Models;
                 BeginContext(112, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
+<<<<<<< HEAD
                 BeginContext(118, 90, false);
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "62dc8441852d41aea0e51a7fb2a6ff2c", async() => {
+=======
+                BeginContext(116, 90, false);
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0081cb5c25574aca9eaa6d6127ccfe92", async() => {
+>>>>>>> master
                 }
                 );
                 __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -122,6 +137,7 @@ using LuizApp.Models;
             BeginContext(224, 2, true);
             WriteLiteral("\r\n");
             EndContext();
+<<<<<<< HEAD
             BeginContext(226, 944, false);
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "97db550355c64fcca80b20e50fb02bd3", async() => {
                 BeginContext(261, 6, true);
@@ -131,6 +147,17 @@ using LuizApp.Models;
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0777ef7d7e65459a966a196353ef86ba", async() => {
                     BeginContext(651, 6, true);
                     WriteLiteral("\r\n    ");
+=======
+            BeginContext(222, 931, false);
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("environment", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "30fe96d01582497586a25e80fb58a6bf", async() => {
+                BeginContext(257, 5, true);
+                WriteLiteral("\n    ");
+                EndContext();
+                BeginContext(262, 394, false);
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4e5ff87b3ded4033a0ad242a4fd9fa12", async() => {
+                    BeginContext(642, 5, true);
+                    WriteLiteral("\n    ");
+>>>>>>> master
                     EndContext();
                 }
                 );
@@ -155,10 +182,17 @@ using LuizApp.Models;
                 BeginContext(666, 6, true);
                 WriteLiteral("\r\n    ");
                 EndContext();
+<<<<<<< HEAD
                 BeginContext(672, 482, false);
                 __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3044813ad0d9484495f5025d400965ff", async() => {
                     BeginContext(1139, 6, true);
                     WriteLiteral("\r\n    ");
+=======
+                BeginContext(661, 477, false);
+                __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d3142762386449a486c95fd6bd91172a", async() => {
+                    BeginContext(1124, 5, true);
+                    WriteLiteral("\n    ");
+>>>>>>> master
                     EndContext();
                 }
                 );
