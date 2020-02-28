@@ -1,4 +1,5 @@
-﻿@model List<Question>
+﻿@using System.Web
+@model List<Question>
 @{
     ViewData["Title"] = "Contact";
 }
@@ -54,13 +55,18 @@
     </div>
 </nav>
 @{
-    string questionlist = "";
+    string questionlist = "[";
     int qnum = 0;
+    string apostrophe = "'";
 }
 @foreach (var question in Model)
 {
     qnum++;
-    questionlist = questionlist + "" + qnum.ToString() + ":['" + question.QuestionName + "','" + question.Question1 + "','" + question.Question2 + "','" + question.Question3 + "','" + question.Question4 + "','" + question.CorrectAnswer + "'],";
+    questionlist = questionlist + "[" + qnum.ToString() + ",'" + question.QuestionName.ToString() + "','" + question.Question1.ToString() + "','" + question.Question2.ToString() + "','" + question.Question3.ToString() + "','" + question.Question4.ToString() + "','" + question.CorrectAnswer.ToString() + apostrophe.ToString() +  "],";
+}
+@{ 
+    questionlist = questionlist + "]";
+    questionlist = Html.Raw(HttpUtility.JavaScriptStringEncode(questionlist)).ToString();
 }
 <div style="margin-top:20px">
     <div id="loginscreen" style="text-align:center">
@@ -260,8 +266,10 @@
     var Timer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-    var Questions = {@questionlist};
-    
+    var Questions = rfc3986EncodeURIComponent("@questionlist.ToString()");
+    function rfc3986EncodeURIComponent (str) {  
+        return encodeURIComponent(str).replace(/[!'()*]/g, escape);  
+    }
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
         $("#numwrong").html(Wrong);

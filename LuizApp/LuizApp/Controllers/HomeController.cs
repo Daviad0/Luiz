@@ -33,7 +33,7 @@ namespace LuizApp.Controllers
         {
             ViewData["Message"] = "Your application description page.";
             var ListOfQuestions = (from q in db.Questions where q.QuizID == id select q).ToList();
-            return View();
+            return View(ListOfQuestions);
         }
 
         public IActionResult Client()
