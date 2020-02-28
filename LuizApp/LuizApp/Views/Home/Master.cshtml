@@ -81,10 +81,7 @@
                 Contestants: <br /><span id="numplayers" style="color:#00ed7a;background-color:white;padding:10px;border-radius:8px;font-size:90px">0</span>
             </div>
         </div>
-        <table id="questionslist">
-
-        </table>
-        <span>@questionlist</span>
+        <span id="questiontest"></span>
         <input type="button" id="startgame" value="GO!" />
     </div>
     
@@ -273,22 +270,14 @@
     var Timer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-    var Questions = [encodeURIComponent("@questionlist.ToString()")];
+    var Questions = [];
+    Questions.ad
+    @foreach(var question in Model)
+    {
+        //"Questions."
+    }
     var numQuestions = Questions.length;
-    function rfc3986EncodeURIComponent (str) {  
-        return encodeURIComponent(str).replace(/[!'()*]/g, escape);  
-    }
-    var i;
-    for (i = 0; i < numQuestions; i++) {
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i]) + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[0] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[1] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[2] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[3] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[4] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[5] + "</td></tr>")
-        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[6] + "</td></tr>")
-    }
+    
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
         $("#numwrong").html(Wrong);
@@ -333,6 +322,9 @@
                         value.streak + "</td></tr>";
                 $("#userleaderboard").append(markup);*/
             });
+    });
+    quiz.on("questionLoaded", function (QuestionLoaded) {
+        $("#questiontest").html(QuestionLoaded.correctAnswer);
     });
     quiz.start().then(function () {
         $(document).ready(function () {

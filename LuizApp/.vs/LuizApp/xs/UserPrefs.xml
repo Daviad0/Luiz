@@ -1,24 +1,23 @@
 ﻿<Properties StartupConfiguration="{6F86AA8E-5AA1-4670-B2DE-FD391EE6F49B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/QuizHub.cs">
     <Files>
       <File FileName="LuizApp/Views/Home/Master.cshtml" Line="399" Column="10" />
       <File FileName="LuizApp/Views/Home/Index.cshtml" />
-      <File FileName="LuizApp/Startup.cs" />
+      <File FileName="LuizApp/Startup.cs" Line="1" Column="1" />
       <File FileName="LuizApp/Models/GameServerConnection.cs" />
-      <File FileName="LuizApp/QuizHub.cs" />
+      <File FileName="LuizApp/QuizHub.cs" Line="1" Column="1" />
       <File FileName="LuizApp/Program.cs" />
       <File FileName="LuizApp/appsettings.json" />
       <File FileName="LuizApp/Controllers/HomeController.cs" />
       <File FileName="../../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="234" Column="5" />
+      <File FileName="LuizApp/Views/_ViewStart.cshtml" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="LuizApp" expanded="True">
             <Node name="LuizApp" expanded="True">
-              <Node name="Controllers" expanded="True">
-                <Node name="HomeController.cs" selected="True" />
-              </Node>
+              <Node name="Controllers" expanded="True" />
               <Node name="Data" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
@@ -32,6 +31,7 @@
                   </Node>
                 </Node>
               </Node>
+              <Node name="QuizHub.cs" selected="True" />
             </Node>
           </Node>
         </State>

@@ -1,4 +1,5 @@
-﻿    using LuizApp.Models;
+﻿using LuizApp.Data;
+using LuizApp.Models;
 using Microsoft.AspNetCore.SignalR;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,13 @@ namespace SignalRChat.Hubs
     public class QuizHub : Hub
     {
         private static int Timeleft = 0;
+        private readonly QuizContext db;
         private static Dictionary<string,string> Instances = new System.Collections.Generic.Dictionary<string, string>();
         private static Dictionary<string,GameServerConnection> GameServer = new System.Collections.Generic.Dictionary<string, GameServerConnection>();
+        public QuizHub(QuizContext db)
+        {
+            this.db = db;
+        }
         //CLIENT > SERVER
         public void ConnectToServer(string UserID, string UserName, bool Connected, string GameKey)
         {
@@ -145,6 +151,11 @@ namespace SignalRChat.Hubs
             {
                 Clients.Client(Context.ConnectionId).SendAsync("gameCreated", false, GeneratedKey);
             }
+        }
+        public void LoadQuestion(int QuestionID)
+        {
+            var QuestionToLoad = (from q in db.Questions where q.QuestionID == QuestionID select q).FirstOrDefault();
+            Clients.All.SendAsync("questionLoaded", QuestionToLoad);
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)
