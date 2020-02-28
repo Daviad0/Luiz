@@ -1,19 +1,23 @@
 ﻿<Properties StartupConfiguration="{6F86AA8E-5AA1-4670-B2DE-FD391EE6F49B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/Controllers/HomeController.cs">
     <Files>
-      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="245" Column="8" />
+      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="57" Column="30" />
       <File FileName="LuizApp/Views/Home/Index.cshtml" />
-      <File FileName="LuizApp/Startup.cs" Line="64" Column="20" />
+      <File FileName="LuizApp/Startup.cs" />
       <File FileName="LuizApp/Models/GameServerConnection.cs" />
-      <File FileName="LuizApp/QuizHub.cs" Line="1" Column="1" />
-      <File FileName="LuizApp/Program.cs" Line="25" Column="65" />
+      <File FileName="LuizApp/QuizHub.cs" />
+      <File FileName="LuizApp/Program.cs" />
+      <File FileName="LuizApp/appsettings.json" />
+      <File FileName="LuizApp/Controllers/HomeController.cs" Line="23" Column="10" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="LuizApp" expanded="True">
             <Node name="LuizApp" expanded="True">
-              <Node name="Controllers" expanded="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="HomeController.cs" selected="True" />
+              </Node>
               <Node name="Data" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
@@ -27,7 +31,6 @@
                   </Node>
                 </Node>
               </Node>
-              <Node name="Program.cs" selected="True" />
             </Node>
           </Node>
         </State>

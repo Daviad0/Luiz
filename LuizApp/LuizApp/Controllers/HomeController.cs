@@ -5,11 +5,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using LuizApp.Models;
+using LuizApp.Data;
 
 namespace LuizApp.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly QuizContext db;
+
+        public HomeController(/*Microsoft.AspNetCore.Identity.UserManager<IdentityUser> userManager,*/ QuizContext db)
+        {
+            this.db = db;
+        }
         public IActionResult Index()
         {
             return View();
@@ -22,10 +29,10 @@ namespace LuizApp.Controllers
             return View();
         }
 
-        public IActionResult Master()
+        public IActionResult Master(int id)
         {
             ViewData["Message"] = "Your application description page.";
-
+            var ListOfQuestions = (from q in db.Questions where q.QuizID == id select q).ToList();
             return View();
         }
 
