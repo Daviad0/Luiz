@@ -55,18 +55,21 @@
     </div>
 </nav>
 @{
-    string questionlist = "[";
+    string questionlist = "";
     int qnum = 0;
     string apostrophe = "'";
+    List<string> QuestionData = new List<string>();
+    List<string> QuestionA1 = new List<string>();
+    List<string> QuestionA2 = new List<string>();
+    List<string> QuestionA3 = new List<string>();
+    List<string> QuestionA4 = new List<string>();
+    List<int> QuestionNum = new List<int>();
+    List<int> QuestionCorrect = new List<int>();
 }
 @foreach (var question in Model)
 {
     qnum++;
     questionlist = questionlist + "[" + qnum.ToString() + ",'" + question.QuestionName.ToString() + "','" + question.Question1.ToString() + "','" + question.Question2.ToString() + "','" + question.Question3.ToString() + "','" + question.Question4.ToString() + "','" + question.CorrectAnswer.ToString() + apostrophe.ToString() +  "],";
-}
-@{ 
-    questionlist = questionlist + "]";
-    questionlist = Html.Raw(HttpUtility.JavaScriptStringEncode(questionlist)).ToString();
 }
 <div style="margin-top:20px">
     <div id="loginscreen" style="text-align:center">
@@ -78,6 +81,10 @@
                 Contestants: <br /><span id="numplayers" style="color:#00ed7a;background-color:white;padding:10px;border-radius:8px;font-size:90px">0</span>
             </div>
         </div>
+        <table id="questionslist">
+
+        </table>
+        <span>@questionlist</span>
         <input type="button" id="startgame" value="GO!" />
     </div>
     
@@ -266,9 +273,21 @@
     var Timer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-    var Questions = rfc3986EncodeURIComponent("@questionlist.ToString()");
+    var Questions = [encodeURIComponent("@questionlist.ToString()")];
+    var numQuestions = Questions.length;
     function rfc3986EncodeURIComponent (str) {  
         return encodeURIComponent(str).replace(/[!'()*]/g, escape);  
+    }
+    var i;
+    for (i = 0; i < numQuestions; i++) {
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i]) + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[0] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[1] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[2] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[3] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[4] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[5] + "</td></tr>")
+        $("#questionslist").append("<tr><td>" + (i + 1) + "</td><td>" + decodeURIComponent(Questions[i])[6] + "</td></tr>")
     }
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
