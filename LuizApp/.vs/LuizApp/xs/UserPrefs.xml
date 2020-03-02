@@ -3,14 +3,14 @@
     <Files>
       <File FileName="LuizApp/Views/Home/Master.cshtml" Line="399" Column="10" />
       <File FileName="LuizApp/Views/Home/Index.cshtml" />
-      <File FileName="LuizApp/Startup.cs" Line="1" Column="1" />
+      <File FileName="LuizApp/Startup.cs" />
       <File FileName="LuizApp/Models/GameServerConnection.cs" />
       <File FileName="LuizApp/QuizHub.cs" Line="1" Column="1" />
       <File FileName="LuizApp/Program.cs" />
       <File FileName="LuizApp/appsettings.json" />
       <File FileName="LuizApp/Controllers/HomeController.cs" />
-      <File FileName="../../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="234" Column="5" />
-      <File FileName="LuizApp/Views/_ViewStart.cshtml" Line="1" Column="1" />
+      <File FileName="../../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" />
+      <File FileName="LuizApp/Views/_ViewStart.cshtml" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
