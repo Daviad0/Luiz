@@ -270,14 +270,18 @@
     var Timer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-    var Questions = [];
-    Questions.ad
+    var QuestionsList = [];
+    @{ 
+        string CodeToAdd = "";
+        int array = 0;
+    }
     @foreach(var question in Model)
     {
-        //"Questions."
+        CodeToAdd += CodeToAdd + "QuestionsList.splice(" + array + ",0," + question.QuestionID.ToString() + ");";
+        array++;
     }
-    var numQuestions = Questions.length;
-    
+    var numQuestions = QuestionsList.length;
+    @CodeToAdd
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
         $("#numwrong").html(Wrong);
