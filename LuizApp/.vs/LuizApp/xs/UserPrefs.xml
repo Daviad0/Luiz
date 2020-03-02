@@ -1,16 +1,14 @@
 ﻿<Properties StartupConfiguration="{6F86AA8E-5AA1-4670-B2DE-FD391EE6F49B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/QuizHub.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/Views/Home/Master.cshtml">
     <Files>
-      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="399" Column="10" />
+      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="372" Column="62" />
       <File FileName="LuizApp/Views/Home/Index.cshtml" />
-      <File FileName="LuizApp/Startup.cs" />
-      <File FileName="LuizApp/Models/GameServerConnection.cs" />
       <File FileName="LuizApp/QuizHub.cs" Line="1" Column="1" />
-      <File FileName="LuizApp/Program.cs" />
       <File FileName="LuizApp/appsettings.json" />
       <File FileName="LuizApp/Controllers/HomeController.cs" />
       <File FileName="../../../../../usr/local/share/dotnet/sdk/3.1.101/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" />
       <File FileName="LuizApp/Views/_ViewStart.cshtml" />
+      <File FileName="LuizApp/Models/Question.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -21,7 +19,9 @@
               <Node name="Data" expanded="True" />
               <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
-                <Node name="Home" expanded="True" />
+                <Node name="Home" expanded="True">
+                  <Node name="Master.cshtml" selected="True" />
+                </Node>
                 <Node name="Shared" expanded="True" />
               </Node>
               <Node name="wwwroot" expanded="True">
@@ -31,7 +31,6 @@
                   </Node>
                 </Node>
               </Node>
-              <Node name="QuizHub.cs" selected="True" />
             </Node>
           </Node>
         </State>
