@@ -4,46 +4,56 @@
     ViewData["Title"] = "Contact";
 }
 <style>
-    .*{
-        margin:0px;
+
+    .* {
+        margin: 0px;
     }
-    .answerbutton{
-        width:100%;
-        height:100%;
-        font-size:200px;
-        font-weight:900;
-        color:white;
-        border:0px solid #EEEEEE
+
+    .answerbutton {
+        width: 100%;
+        height: 100%;
+        font-size: 200px;
+        font-weight: 900;
+        color: white;
+        border: 0px solid #EEEEEE
     }
-    .answerbutton:hover{
-        filter: brightness(85%);
+
+        .answerbutton:hover {
+            filter: brightness(85%);
+        }
+
+        .answerbutton:active {
+            filter: brightness(60%);
+        }
+
+    .fullscreendiv {
+        background-color: #EEEEEE;
+        padding: 30px;
+        display: none;
     }
-    .answerbutton:active{
-        filter: brightness(60%);
-    }
-    .fullscreendiv{
-        background-color:#EEEEEE;
-        padding:30px;
-        display:none;
-    }
-    .fullscreendiv:fullscreen{
-        display:inline;
-    }
+
+        .fullscreendiv:fullscreen {
+            display: inline;
+        }
+
     .smallstatusicons {
         height: 50px;
         width: 50px;
-        background-color:lightblue;
+        background-color: lightblue;
         border-radius: 50%;
         display: inline-block;
-        border:4px solid gray
+        border: 4px solid gray
     }
+
     .rank1leaderboard {
         background: rgb(0,2,177);
         background: linear-gradient(145deg, rgba(0,2,177,1) 0%, rgba(0,191,255,1) 100%);
     }
+
     .rank23leaderboard {
         background: rgb(0,191,255);
     }
+
     .rank4567leaderboard {
         background: rgb(0,191,255);
     }
@@ -51,25 +61,19 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
         <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
-        
+
     </div>
 </nav>
 @{
     string questionlist = "";
-    int qnum = 0;
-    string apostrophe = "'";
-    List<string> QuestionData = new List<string>();
-    List<string> QuestionA1 = new List<string>();
-    List<string> QuestionA2 = new List<string>();
-    List<string> QuestionA3 = new List<string>();
-    List<string> QuestionA4 = new List<string>();
-    List<int> QuestionNum = new List<int>();
-    List<int> QuestionCorrect = new List<int>();
 }
-@foreach (var question in Model)
+@foreach (var question in Model.Take(1))
 {
-    qnum++;
-    questionlist = questionlist + "[" + qnum.ToString() + ",'" + question.QuestionName.ToString() + "','" + question.Question1.ToString() + "','" + question.Question2.ToString() + "','" + question.Question3.ToString() + "','" + question.Question4.ToString() + "','" + question.CorrectAnswer.ToString() + apostrophe.ToString() +  "],";
+    questionlist = questionlist + question.QuestionID.ToString();
+}
+@foreach (var question in Model.Skip(1))
+{
+    questionlist = questionlist + "," + question.QuestionID.ToString();
 }
 <div style="margin-top:20px">
     <div id="loginscreen" style="text-align:center">
@@ -84,7 +88,7 @@
         <span id="questiontest"></span>
         <input type="button" id="startgame" value="GO!" />
     </div>
-    
+
     <div id="questionp" style="display:none">
         <br />
         <br />
@@ -99,7 +103,7 @@
             </tr>
         </table>
         <table style="width:100%;border-spacing:0 15px;border-collapse:separate;margin-top:15vh">
-            
+
             <tr>
                 <td style="width:10%;overflow:hidden;background-color:white;border:4px solid #42c5f5;border-radius:6px 0px 0px 6px">
                     <span style="font-weight:900;font-size:50px;text-align:center;margin-left:40px;color:#42c5f5">1</span>
@@ -133,26 +137,11 @@
                 </td>
             </tr>
         </table>
-        <table width="100%">
-            <tr>
-                <td style="width:25%">
-                    <input id="checkanswer1" value="Check #1" type="button"/>
-                </td>
-                <td style="width:25%">
-                    <input id="checkanswer2" value="Check #2" type="button"/>
-                </td>
-                <td style="width:25%">
-                    <input id="checkanswer3" value="Check #3" type="button"/>
-                </td>
-                <td style="width:25%">
-                    <input id="checkanswer4" value="Check #4" type="button"/>
-                </td>
-            </tr>
-        </table>
+        <input type="button" id="checkanswer" value="Check Answer"/>
         <div style="text-align:center">
             <span id="secondsleft" style="text-align:center;padding:10px;font-size:30px;background-color:#03b1fc;color:white"></span>
         </div>
-        
+
     </div>
     <div id="resultsp" style="display:none">
         <br />
@@ -178,10 +167,10 @@
                 </td>
             </tr>
         </table>
-        
+
         <input type="button" id="leaderboard" value="Leaderboard" />
     </div>
-    <div id="leaderboardp"  style="display:none;text-align:center">
+    <div id="leaderboardp" style="display:none;text-align:center">
         <br />
         <br />
         <div class="rank23leaderboard" style="border-radius:10px;padding:15px;display:flex;justify-content:space-between">
@@ -227,11 +216,10 @@
         </div>
         <input type="button" id="next" value="Next Question" />
     </div>
-    </div>
+</div>
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
-<script>
-    $('#toggle_fullscreen').on('click', function () {
+<script>$('#toggle_fullscreen').on('click', function () {
         // if already full screen; exit
         // else go fullscreen
         if (
@@ -260,29 +248,18 @@
             } else if (element.msRequestFullscreen) {
                 element.msRequestFullscreen();
             }
-            
+
         }
-    });
-</script>
+    });</script>
 <script>
     var GameKey = 0;
     var CurrentCorrect = 1;
     var Timer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
-    var QuestionsList = [];
+    var QuestionsList = [@questionlist];
     var QuestionIndex = 0;
-    @{ 
-        string CodeToAdd = "";
-        int array = 0;
-    }
-    @foreach(var question in Model)
-    {
-        CodeToAdd += CodeToAdd + "QuestionsList.splice(" + array + ",0," + question.QuestionID.ToString() + ");";
-        array++;
-    }
     var numQuestions = QuestionsList.length;
-    @CodeToAdd
     quiz.on("questionResults", function (Correct, Wrong, Num1, Num2, Num3, Num4) {
         $("#numcorrect").html(Correct);
         $("#numwrong").html(Wrong);
@@ -328,25 +305,27 @@
                 $("#userleaderboard").append(markup);*/
             });
     });
-    quiz.on("questionLoaded", function (QuestionLoaded) {
-        $("#questiontest").html(QuestionLoaded.correctAnswer);
-    });
+
     quiz.start().then(function () {
+        quiz.on("questionLoaded", function (QuestionLoaded) {
+            $("#questiontest").html(QuestionLoaded.correctAnswer);
+            var i = 0
+            $("#questionp").css("display", "inline");
+            $("#resultsp").css("display", "none");
+            $("#leaderboardp").css("display", "none");
+            quiz.invoke("nextQuestion");
+            Timer = 30;
+            $("#secondsleft").html(Timer)
+            setTimeout(Countdown, 1000);
+            QuestionEnabled = true;
+        });
         $(document).ready(function () {
             GameKey = Math.floor((Math.random() * 1000000) + 1);
             quiz.invoke("instanceCreate", GameKey);
         });
-        $("#checkanswer1").click(function () {
-            ShowResults(1);
-        });
-        $("#checkanswer2").click(function () {
-            ShowResults(2);
-        });
-        $("#checkanswer3").click(function () {
-            ShowResults(3);
-        });
-        $("#checkanswer4").click(function () {
-            ShowResults(4);
+        $("#checkanswer").click(function () {
+            ShowResults(CurrentCorrect);
+            QuestionEnabled = false;
         });
         $("#next").click(function () {
             ShowQuestion();
@@ -374,7 +353,7 @@
             $("#qsa2").html(QuestionLoaded.question2);
             $("#qsa3").html(QuestionLoaded.question3);
             $("#qsa4").html(QuestionLoaded.question4);
-            CurrentCorrect = QuestionLoaded.correctAnswer
+            CurrentCorrect = QuestionLoaded.correctAnswer;
         });
         function ShowQuestion() {
             QuestionReveal()
@@ -382,18 +361,7 @@
         function QuestionReveal() {
             quiz.invoke("loadQuestion", QuestionsList[QuestionIndex]);
             QuestionIndex += 1
-            var i = 0
-            for (i = 0; i < 5; i += 1) {
-                setTimeout(1000)
-            }
-            $("#questionp").css("display", "inline");
-            $("#resultsp").css("display", "none");
-            $("#leaderboardp").css("display", "none");
-            quiz.invoke("nextQuestion");
-            Timer = 30;
-            $("#secondsleft").html(Timer)
-            setTimeout(Countdown, 1000);
-            QuestionEnabled = true;
+
         }
         function ShowResults(CorrectAnswer) {
             quiz.invoke("nextQuestion");
@@ -404,29 +372,29 @@
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "inline");
             $("#leaderboardp").css("display", "none");
-            
-        
-            
+
+
+
         }
         function ShowLeaderboard() {
             $("#questionp").css("display", "none");
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "inline");
             quiz.invoke("getLeaderboard");
-            
+
         }
         function Countdown() {
             Timer = Timer - 1;
             if (Timer > 0 && QuestionEnabled == true) {
-                
+
                 setTimeout(Countdown, 1000);
                 $("#secondsleft").html(Timer)
             } else {
                 ShowResults(CurrentCorrect)
             }
-            
+
         }
-        
+
     });
-    
+
 </script>
