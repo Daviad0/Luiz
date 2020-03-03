@@ -71,45 +71,47 @@ namespace SignalRChat.Hubs
             int num2 = 0;
             int num3 = 0;
             int num4 = 0;
+            var GameToSelect = Instances.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
             foreach (var item in GameServer.Keys)
             {
-                
-                if(GameServer[item].LastAnswer == CorrectAnswer)
-                {
-                    GameServer[item].Points += 1000;
-                    GameServer[item].Points += 50 * Timeleft;
-                    GameServer[item].Points += 50 * GameServer[item].Streak;
-                    GameServer[item].Streak++;
-                    Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
-                    numcorrect++;
-                }
-                else
-                {
-                    GameServer[item].Streak = 0;
-                    Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, false, GameServer[item].Streak);
-                    numwrong++;
-                }
-                if(GameServer[item].LastAnswer != 0)
-                {
-                    if(GameServer[item].LastAnswer == 1)
+                if(GameServer[item].GameKey == GameToSelect.Key) { 
+                    if(GameServer[item].LastAnswer == CorrectAnswer)
                     {
-                        num1++;
-                    }else if(GameServer[item].LastAnswer == 2)
-                    {
-                        num2++;
+                        GameServer[item].Points += 1000;
+                        GameServer[item].Points += 50 * Timeleft;
+                        GameServer[item].Points += 50 * GameServer[item].Streak;
+                        GameServer[item].Streak++;
+                        Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
+                        numcorrect++;
                     }
-                    else if (GameServer[item].LastAnswer == 3)
+                    else
                     {
-                        num3++;
+                        GameServer[item].Streak = 0;
+                        Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, false, GameServer[item].Streak);
+                        numwrong++;
                     }
-                    else if (GameServer[item].LastAnswer == 4)
+                    if(GameServer[item].LastAnswer != 0)
                     {
-                        num4++;
+                        if(GameServer[item].LastAnswer == 1)
+                        {
+                            num1++;
+                        }else if(GameServer[item].LastAnswer == 2)
+                        {
+                            num2++;
+                        }
+                        else if (GameServer[item].LastAnswer == 3)
+                        {
+                            num3++;
+                        }
+                        else if (GameServer[item].LastAnswer == 4)
+                        {
+                            num4++;
+                        }
                     }
+                    GameServer[item].LastAnswer = 0;
                 }
-                GameServer[item].LastAnswer = 0;
             }
-            Clients.All.SendAsync("questionResults", numcorrect, numwrong, num1, num2, num3, num4);
+            Clients.Client(Context.ConnectionId).SendAsync("questionResults", numcorrect, numwrong, num1, num2, num3, num4);
         }
         public void ViewToggle(bool ReviewScore)
         {
@@ -138,7 +140,7 @@ namespace SignalRChat.Hubs
                 PreviousUser = item.Value;
                 Behind = true;
             }
-            Clients.All.SendAsync("sendLeaderboard", TopTen);
+            Clients.Client(Context.ConnectionId).SendAsync("sendLeaderboard", TopTen);
         }
         public void InstanceCreate(string GeneratedKey)
         {
@@ -154,8 +156,13 @@ namespace SignalRChat.Hubs
         }
         public void LoadQuestion(int QuestionID)
         {
+            var SelectedGame = Instances.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
             var QuestionToLoad = (from q in db.Questions where q.QuestionID == QuestionID select q).FirstOrDefault();
-            Clients.All.SendAsync("questionLoaded", QuestionToLoad);
+            foreach(var client in GameServer.Where(u => u.Value.GameKey == SelectedGame.Key))
+            {
+                Clients.Client(client.Value.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
+            }
+            
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)

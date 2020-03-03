@@ -57,11 +57,44 @@
     .rank4567leaderboard {
         background: rgb(0,191,255);
     }
+    .hidethisbar{
+        display:none;
+    }
+    .infobox{
+        background:rgba(0,0,0,0.5);
+    }
+    .powerorb {
+        background: rgb(0,255,207);
+        background: linear-gradient(161deg, rgba(0,255,207,1) 0%, rgba(16,111,236,1) 100%);
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .correctmarker {
+        background-color: green;
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .progressbar{
+        transition: width 1s;
+    }
+
 </style>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
-    <div class="container" style="text-align:center">
-        <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
-
+    <div class="container" style="text-align:center;margin-top:10px">
+        <div style="border:3px solid #03b1fc;border-radius:20px;margin-bottom:10px">
+            <div style="width:100%;height:30px;border:5px solid white;border-radius:20px;background-color:white">
+                <div style="width:50%;background-color:#03b1fc;height:20px;border-radius:20px" class="progressbar"></div>
+            </div>
+        </div>
+        <div style="color:white;padding:10px;border-radius:4px;width:20%;margin:auto" class="infobox">
+            <span id="iconib" style="font-size:17px"><span class="powerorb"></span></span>
+            <span style="font-size:25px;font-weight:600" id="messageib">0</span>
+        </div>
+        
     </div>
 </nav>
 @{
@@ -75,6 +108,7 @@
 {
     questionlist = questionlist + "," + question.QuestionID.ToString();
 }
+
 <div style="margin-top:20px">
     <div id="loginscreen" style="text-align:center">
         <div style="background-color:#03b1fc;font-size:60px;font-weight:600;padding:10px;border-radius:10px;color:white;display:flex;justify-content:space-between">
@@ -255,6 +289,7 @@
     var GameKey = 0;
     var CurrentCorrect = 1;
     var Timer = 0;
+    var InitialTimer = 0;
     var QuestionEnabled = true;
     var quiz = new signalR.HubConnectionBuilder().withUrl("/quizHub").build();
     var QuestionsList = [@questionlist];
@@ -293,6 +328,11 @@
         $("#num4l").css("color", "gray")
         $("#num" + CurrentCorrect + "c").css("background-color", "green")
         $("#num" + CurrentCorrect + "l").css("color", "green")
+        $("#iconib").html("<span class='correctmarker'>&#x2713;</span>");
+        if ((Correct + Wrong) == 0) {
+            Wrong = 1
+        }
+        $("#messageib").html((Correct / (Correct + Wrong))*100 + "%");
 
     });
     quiz.on("sendLeaderboard", function (TopTen) {
@@ -314,7 +354,9 @@
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "none");
             quiz.invoke("nextQuestion");
+            InitialTimer = 30;
             Timer = 30;
+            $(".progressbar").css("width", "100%")
             $("#secondsleft").html(Timer)
             setTimeout(Countdown, 1000);
             QuestionEnabled = true;
@@ -381,16 +423,22 @@
             $("#resultsp").css("display", "none");
             $("#leaderboardp").css("display", "inline");
             quiz.invoke("getLeaderboard");
+            $("#iconib").html("<span class='powerorb'></span>");
+            $("#messageib").html("0");
 
         }
         function Countdown() {
             Timer = Timer - 1;
             if (Timer > 0 && QuestionEnabled == true) {
-
+                $(".progressbar").css("width", (Timer / InitialTimer)*100 + "%")
                 setTimeout(Countdown, 1000);
                 $("#secondsleft").html(Timer)
             } else {
-                ShowResults(CurrentCorrect)
+                $(".progressbar").css("width", "0%")
+                if (QuestionEnabled == true) {
+                    ShowResults(CurrentCorrect)
+                }
+                
             }
 
         }
