@@ -162,7 +162,9 @@ namespace SignalRChat.Hubs
             {
                 Clients.Client(client.Value.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
             }
-            
+            Clients.Client(Context.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
+
+
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)
