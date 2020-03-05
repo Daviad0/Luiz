@@ -22,6 +22,7 @@ namespace SignalRChat.Hubs
         {
             if (Connected)
             {
+                
                 if (!GameServer.ContainsKey(UserID))
                 {
                     GameServerConnection newUser = new GameServerConnection();
@@ -34,7 +35,7 @@ namespace SignalRChat.Hubs
                     newUser.UserName = UserName;
                     newUser.GameKey = GameKey;
                     GameServer.Add(UserID, newUser);
-                    
+                    Groups.AddToGroupAsync(Context.ConnectionId, GameKey);
                 }
                 else
                 {
@@ -115,13 +116,14 @@ namespace SignalRChat.Hubs
         }
         public void ViewToggle(bool ReviewScore)
         {
+            var SelectedGame = Instances.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
             var ClientLeaderboard = GameServer.ToList();
-            foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points))
+            foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points).Where(c => c.Value.GameKey == SelectedGame.Key))
             {
                 Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak);
             }
-            Clients.All.SendAsync("toggleScore", ReviewScore);
-            
+            Clients.Group(SelectedGame.Value).SendAsync("toggleScore");
+
         }
         public void GetLeaderboard()
         {
@@ -158,10 +160,7 @@ namespace SignalRChat.Hubs
         {
             var SelectedGame = Instances.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
             var QuestionToLoad = (from q in db.Questions where q.QuestionID == QuestionID select q).FirstOrDefault();
-            foreach(var client in GameServer.Where(u => u.Value.GameKey == SelectedGame.Key))
-            {
-                Clients.Client(client.Value.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
-            }
+            Clients.Group(SelectedGame.Value).SendAsync("questionLoaded");
             Clients.Client(Context.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
 
 
@@ -173,7 +172,8 @@ namespace SignalRChat.Hubs
         }
         public void NextQuestion()
         {
-            Clients.All.SendAsync("nextQuestion");
+            var SelectedGame = Instances.Where(u => u.Value == Context.ConnectionId).FirstOrDefault();
+            Clients.Group(SelectedGame.Value).SendAsync("nextQuestion");
         }
     }
 }
