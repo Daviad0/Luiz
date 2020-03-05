@@ -42,7 +42,7 @@
             "Microsoft.AspNetCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.1.15, )",
+              "version": "[2.1.1, )",
               "autoReferenced": true
             },
             "Microsoft.AspNetCore.Razor.Design": {
@@ -53,7 +53,7 @@
             "Microsoft.NETCore.App": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[2.1.15, )",
+              "version": "[2.1.0, )",
               "autoReferenced": true
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
@@ -72,11 +72,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/3.1.101/RuntimeIdentifierGraph.json"
-        }
-      },
-      "runtimes": {
-        "linux-arm": {
-          "#import": []
         }
       }
     }
