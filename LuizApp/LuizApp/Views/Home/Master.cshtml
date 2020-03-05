@@ -117,6 +117,9 @@
         border-collapse:separate;
         border-spacing:10px 0px;
     }
+    .screen{
+        transition: display 2s;
+    }
 </style>
 
 @{
@@ -132,7 +135,7 @@
 }
  <!--https://jsfiddle.net/AntonTrollback/nqQc7/-->
 <div style="margin-top:20px">
-    <div id="loginscreen" style="text-align:center">
+    <div id="loginscreen" style="text-align:center" class="screen">
         <div style="background-color:#03b1fc;font-size:60px;font-weight:600;padding:10px;border-radius:10px;color:white;display:flex;justify-content:space-between">
             <div>
                 Game Key: <br /><span id="gamecode" style="color:#03b1fc;background-color:white;padding:10px;border-radius:8px;font-size:90px">[UNAVAIL]</span><span id="gameerror" style="margin-left:10px">&#9888;</span>
@@ -225,32 +228,32 @@
     </div>
     <div id="leaderboardp" style="display:none;text-align:center">
         <div class="container">
-          <div class="rank23leaderboard">
-            <div class="name">Player1</div><div class="score">430</div>
+          <div class="rank23leaderboard" id="r1">
+            <div class="name" id="r1user">Player1</div><div class="score" id="r1pts">430</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player2</div><div class="score">580</div>
+          <div class="rank23leaderboard" id="r2">
+            <div class="name" id="r2user">Player2</div><div class="score" id="r2pts">580</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player3</div><div class="score">310</div>
+          <div class="rank23leaderboard" id="r3">
+            <div class="name" id="r3user">Player3</div><div class="score" id="r3pts">310</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player4</div><div class="score">640</div>
+          <div class="rank23leaderboard" id="r4">
+            <div class="name" id="r4user">Player4</div><div class="score" id="r4pts">640</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player5</div><div class="score">495</div>
+          <div class="rank23leaderboard" id="r5">
+            <div class="name" id="r5user">Player5</div><div class="score" id="r5pts">495</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player6</div><div class="score">495</div>
+          <div class="rank23leaderboard" id="r6">
+            <div class="name" id="r6user">Player6</div><div class="score" id="r6pts">495</div>
           </div>
 
-          <div class="rank23leaderboard">
-            <div class="name">Player7</div><div class="score">495</div>
+          <div class="rank23leaderboard" id="r7">
+            <div class="name" id="r7user">Player7</div><div class="score" id="r7pts">495</div>
           </div>
         </div>
         <input type="button" id="next" value="Next Question" />
@@ -423,6 +426,7 @@
             quiz.invoke("nextQuestion");
             InitialTimer = 30;
             Timer = 30;
+            quiz.invoke("setTimer", Timer);
             $("#iconib").html("");
             $("#messageib").html(Timer + " seconds")
             $(".progressbar").css("background-color", "#03b1fc")
@@ -500,7 +504,8 @@
         function Countdown() {
             Timer = Timer - 1;
             if (Timer > 0 && QuestionEnabled == true) {
-                $(".progressbar").css("width", (Timer / InitialTimer)*100 + "%")
+                $(".progressbar").css("width", (Timer / InitialTimer) * 100 + "%")
+                quiz.invoke("setTimer", Timer);
                 setTimeout(Countdown, 1000);
                 $("#secondsleft").html(Timer)
                 $("#iconib").html("");

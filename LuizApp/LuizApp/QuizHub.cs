@@ -79,8 +79,8 @@ namespace SignalRChat.Hubs
                     if(GameServer[item].LastAnswer == CorrectAnswer)
                     {
                         GameServer[item].Points += 1000;
-                        GameServer[item].Points += 50 * Timeleft;
-                        GameServer[item].Points += 50 * GameServer[item].Streak;
+                        GameServer[item].Points += 7 * Timeleft;
+                        GameServer[item].Points += 40 * GameServer[item].Streak;
                         GameServer[item].Streak++;
                         Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
                         numcorrect++;
@@ -164,6 +164,10 @@ namespace SignalRChat.Hubs
             Clients.Client(Context.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
 
 
+        }
+        public void SetTimer(int TimeLeftGiven)
+        {
+            Timeleft = TimeLeftGiven;
         }
         //MASTER > CLIENT
         public void TimeLeft(int seconds)
