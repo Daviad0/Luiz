@@ -127,6 +127,7 @@ namespace SignalRChat.Hubs
             foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points).Where(c => c.Value.GameKey == SelectedGame.Key))
             {
                 Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak);
+                Clients.Client(item.Value.ConnectionId).SendAsync("powerOrbs", PowerUps[item.Key].PowerPoints);
             }
             Clients.Group(SelectedGame.Value.ConnectionID).SendAsync("toggleScore");
 

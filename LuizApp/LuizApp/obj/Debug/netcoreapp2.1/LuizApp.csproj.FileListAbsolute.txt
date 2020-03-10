@@ -48,3 +48,11 @@
 /Users/daviado/Downloads/Luiz/LuizApp/LuizApp/obj/Debug/netcoreapp2.1/LuizApp.dll
 /Users/daviado/Downloads/Luiz/LuizApp/LuizApp/obj/Debug/netcoreapp2.1/LuizApp.pdb
 /Users/daviado/Downloads/Luiz/LuizApp/LuizApp/obj/Debug/netcoreapp2.1/LuizApp.csproj.CopyComplete
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.csprojAssemblyReference.cache
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.RazorAssemblyInfo.cache
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.RazorAssemblyInfo.cs
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\UserSecretsAssemblyInfo.cs
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.AssemblyInfoInputs.cache
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.AssemblyInfo.cs
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.dll
+C:\Users\djree\source\repos\Luiz\LuizApp\LuizApp\obj\Debug\netcoreapp2.1\LuizApp.pdb
