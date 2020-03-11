@@ -1,6 +1,7 @@
 ﻿using LuizApp.Data;
 using LuizApp.Models;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace SignalRChat.Hubs
                     powerUpLog.PowerPoints = 0;
                     powerUpLog.SaveMe = 0;
                     powerUpLog.TimeMax = 0;
+                    PowerUps.Add(UserID,powerUpLog);
                     Groups.AddToGroupAsync(Context.ConnectionId, GameKey);
                 }
                 else
@@ -87,7 +89,7 @@ namespace SignalRChat.Hubs
                         GameServer[item].Points += 7 * GameToSelect.Value.TimeLeft;
                         GameServer[item].Points += 40 * GameServer[item].Streak;
                         GameServer[item].Streak++;
-                        PowerUps[item].PowerPoints += GameToSelect.Value.TimeLeft + GameServer[item].Streak;
+                        PowerUps[item].PowerPoints += (int)Math.Floor(GameToSelect.Value.TimeLeft * (1 + (.1 * GameServer[item].Streak)));
                         Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
                         numcorrect++;
                     }
@@ -127,6 +129,7 @@ namespace SignalRChat.Hubs
             foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points).Where(c => c.Value.GameKey == SelectedGame.Key))
             {
                 Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak);
+                Clients.Client(item.Value.ConnectionId).SendAsync("clientPower", PowerUps[item.Key].PowerPoints);
             }
             Clients.Group(SelectedGame.Value.ConnectionID).SendAsync("toggleScore");
 
@@ -138,8 +141,10 @@ namespace SignalRChat.Hubs
             var PreviousUser = new GameServerConnection();
             var TopTen = new List<GameServerConnection>();
             var Behind = false;
+            var PowerPoints = 0;
             foreach(var item in GameServer.Where(c => c.Value.GameKey == SelectedGame.Key).OrderByDescending(c => c.Value.Points).ThenByDescending(c => c.Value.Streak).ThenBy(c => c.Value.UserName))
             {
+                PowerPoints = PowerPoints + PowerUps[item.Key].PowerPoints;
                 i++;
                 if(i <= 10)
                 {
@@ -149,7 +154,7 @@ namespace SignalRChat.Hubs
                 PreviousUser = item.Value;
                 Behind = true;
             }
-            Clients.Client(Context.ConnectionId).SendAsync("sendLeaderboard", TopTen);
+            Clients.Client(Context.ConnectionId).SendAsync("sendLeaderboard", TopTen, PowerPoints);
         }
         public void InstanceCreate(string GeneratedKey)
         {

@@ -362,8 +362,9 @@
         PercentCorrect = (Correct / (Correct + Wrong))
 
     });
-    quiz.on("sendLeaderboard", function (TopTen) {
+    quiz.on("sendLeaderboard", function (TopTen, PowerPoints) {
         rankings = TopTen.length;
+        $("#messageib").html(PowerPoints);
         if (rankings > 0) {
             $("#r1").css("display","block")
             $("#r1user").text(TopTen[0].userName);

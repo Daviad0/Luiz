@@ -1,30 +1,33 @@
 ﻿<Properties StartupConfiguration="{6F86AA8E-5AA1-4670-B2DE-FD391EE6F49B}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/Models/InstanceConnection.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="LuizApp/QuizHub.cs">
     <Files>
-      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="221" Column="18" />
-      <File FileName="LuizApp/QuizHub.cs" Line="1" Column="1" />
+      <File FileName="LuizApp/Views/Home/Master.cshtml" Line="367" Column="43" />
       <File FileName="LuizApp/Views/Shared/_Layout.cshtml" />
-      <File FileName="LuizApp/Views/Home/Client.cshtml" />
+      <File FileName="LuizApp/Views/Home/Client.cshtml" Line="200" Column="8" />
       <File FileName="LuizApp/Models/Question.cs" />
-      <File FileName="LuizApp/Models/GameServerConnection.cs" Line="20" Column="6" />
+      <File FileName="LuizApp/Models/GameServerConnection.cs" Line="16" Column="41" />
       <File FileName="LuizApp/appsettings.json" />
-      <File FileName="LuizApp/Startup.cs" />
+      <File FileName="LuizApp/Startup.cs" Line="42" Column="1" />
       <File FileName="LuizApp/Views/Home/Index.cshtml" />
       <File FileName="LuizApp/Models/PowerUp.cs" Line="11" Column="1" />
       <File FileName="LuizApp/Models/Quiz.cs" Line="1" Column="1" />
-      <File FileName="LuizApp/Models/InstanceConnection.cs" Line="6" Column="29" />
+      <File FileName="LuizApp/Models/InstanceConnection.cs" Line="12" Column="28" />
+      <File FileName="LuizApp/QuizHub.cs" Line="20" Column="1" />
+      <File FileName="LuizApp/Data/Migrations/QuizContext.cs" Line="15" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="LuizApp" expanded="True">
             <Node name="LuizApp" expanded="True">
-              <Node name="Models" expanded="True">
-                <Node name="InstanceConnection.cs" selected="True" />
+              <Node name="Data" expanded="True">
+                <Node name="Migrations" expanded="True" />
               </Node>
+              <Node name="Models" expanded="True" />
               <Node name="Views" expanded="True">
                 <Node name="Home" expanded="True" />
               </Node>
+              <Node name="QuizHub.cs" selected="True" />
             </Node>
           </Node>
         </State>
@@ -35,7 +38,11 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/QuizHub.cs" relfile="LuizApp/QuizHub.cs" line="73" column="1" />
+      <Breakpoint file="/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/QuizHub.cs" relfile="LuizApp/QuizHub.cs" line="136" column="1" />
+      <Breakpoint file="/Users/daviado/Downloads/Luiz/LuizApp/LuizApp/QuizHub.cs" relfile="LuizApp/QuizHub.cs" line="124" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
 </Properties>

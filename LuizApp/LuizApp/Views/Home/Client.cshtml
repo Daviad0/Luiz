@@ -54,8 +54,9 @@
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
         <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
-        <span id="currentscore"style="background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px">0000000</span>
+        <span id="currentscore" style="background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px">0000000</span>
         <span id="currentstreak" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
+        <span id="powerorbs" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
     </div>
 </nav>
 <body style="background-color:#EEEEEE" id="answerstatus">
@@ -193,6 +194,9 @@
         $("#waitingothers").attr("hidden", true);
         $("#youranswer").attr("hidden", true);
         $("#answerstatus").css("background-color", "#EEEEEE");
+    });
+    quiz.on("clientPower", function (NumPoints) {
+        $("#powerorbs").html(NumPoints);
     });
     quiz.start().then(function () {
         $("#usernametouse").on("change", function () {
