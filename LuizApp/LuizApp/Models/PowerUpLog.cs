@@ -5,6 +5,7 @@ namespace LuizApp.Models
     {
         public int PowerPoints { get; set; }
         public int SaveMe { get; set; }
+        public int DoublePoints { get; set; }
         public int TimeMax { get; set; }
     }
 }

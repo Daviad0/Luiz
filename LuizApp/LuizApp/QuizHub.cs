@@ -90,6 +90,10 @@ namespace SignalRChat.Hubs
                         GameServer[item].Points += 40 * GameServer[item].Streak;
                         GameServer[item].Streak++;
                         PowerUps[item].PowerPoints += (int)Math.Floor(GameToSelect.Value.TimeLeft * (1 + (.1 * GameServer[item].Streak)));
+                        if(PowerUps[item].PowerPoints >= 500)
+                        {
+                            PowerUps[item].PowerPoints = 500;
+                        }
                         Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
                         numcorrect++;
                     }
@@ -195,6 +199,63 @@ namespace SignalRChat.Hubs
         {
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.Group(SelectedGame.Key).SendAsync("nextQuestion");
+        }
+
+        /*
+        BUY POWER UPS:
+
+        100PO = Answer Streak Keeper
+        200PO = Double Points
+
+        STEPS TO BUY POWER UPS:
+
+        1. Check LIVE shop availability
+        2. Check PO availability
+        3. Deduct PO
+        4. Give power up
+        5. Lock shop for user
+
+        POWERUP IDS:
+
+        1 - Save Me
+        2 - Double Points
+         */
+        public void PurchasePowerUp(string UserID, int PowerUpValue, int CurrentPO)
+        {
+            switch (PowerUpValue)
+            {
+                case 1:
+                    if(CurrentPO >= 100)
+                    {
+                        PowerUps[UserID].SaveMe++;
+                        CurrentPO = CurrentPO - 100;
+                    }
+                    else
+                    {
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", 100-CurrentPO);
+                    }
+                    break;
+                case 2:
+                    if(CurrentPO >= 200)
+                    {
+                        PowerUps[UserID].DoublePoints++;
+                        CurrentPO = CurrentPO - 200;
+                    }
+                    else
+                    {
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", 200-CurrentPO);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            Clients.Client(Context.ConnectionId).SendAsync("inventoryUpdate", PowerUps[UserID].DoublePoints, PowerUps[UserID].SaveMe);
+            Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
+        }
+        public void AwardPO(string UserID, int Amount)
+        {
+            PowerUps[UserID].PowerPoints += Amount;
+            Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
         }
     }
 }

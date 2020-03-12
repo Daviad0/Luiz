@@ -57,8 +57,10 @@
         <span id="currentscore" style="background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px">0000000</span>
         <span id="currentstreak" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
         <span id="powerorbs" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
+        <span id="powerupamounts" style="background-color:gray;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0/0</span>
     </div>
 </nav>
+
 <body style="background-color:#EEEEEE" id="answerstatus">
     <div class="fullscreendiv" id="fullscreenthis" style="margin:0">
         <div id="question" hidden style="margin:0">
@@ -81,7 +83,7 @@
                 </tr>
             </table>
             <div style="margin-top:15px;text-align:center" id="userinfo">
-                <span >0008888</span>
+                <span id="userIDpicked">ABCD-1234</span><input type="button" value="Award Power Orbs" id="AwardPO" />
             </div>
         </div>
         <div id="login" style="margin-top:27vh;text-align:center">
@@ -138,6 +140,15 @@
     });
 </script>
 <script>
+    function on() {
+        document.getElementById("overlay").style.display = "block";
+    }
+
+    function off() {
+        document.getElementById("overlay").style.display = "none";
+    }
+</script>
+<script>
     
     function UUIDGenerate() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
@@ -155,6 +166,7 @@
     currentanswer = 0;
     $(document).ready(function () {
         userID = UUIDGenerate();
+        $("#userIDpicked").html(userID)
     });
     quiz.on("toggleScore", function (ReviewScore) {
 
@@ -195,6 +207,9 @@
         $("#youranswer").attr("hidden", true);
         $("#answerstatus").css("background-color", "#EEEEEE");
     });
+    quiz.on("inventoryUpdate", function (DoublePoints, SaveMe) {
+        $("#powerupamounts").html(DoublePoints + "/" + SaveMe);
+    });
     quiz.on("clientPower", function (NumPoints) {
         $("#powerorbs").html(NumPoints);
     });
@@ -205,6 +220,9 @@
             } else {
                 $("#logintoserver").attr("disabled", true);
             }
+        });
+        $("#AwardPO").click(function () {
+            quiz.invoke("AwardPO", userID, 200);
         });
         $("#logintoserver").click(function () {
             userName = $("#usernametouse").val();
