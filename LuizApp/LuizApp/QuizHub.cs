@@ -193,8 +193,9 @@ namespace SignalRChat.Hubs
         //MASTER > CLIENT
         public void TimeLeft(int seconds)
         {
+            var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.All.SendAsync("questionTimeLeft", seconds);
-            if(seconds == 15)
+            if(seconds < 15 && SelectedGame.Value.PowerUpEnabled == true)
             {
                 CloseShop();
                 //DOESN'T WORK
@@ -204,6 +205,7 @@ namespace SignalRChat.Hubs
         {
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.Group(SelectedGame.Key).SendAsync("nextQuestion");
+            
         }
 
         /*
