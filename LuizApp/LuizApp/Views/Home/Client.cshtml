@@ -45,18 +45,62 @@
         transition: 0.5s;
         -webkit-transition: 0.5s;
     }
+
+    .closebtn {
+        margin-left: 15px;
+        color: white;
+        font-weight: bold;
+        float: right;
+        font-size: 22px;
+        line-height: 20px;
+        cursor: pointer;
+        transition: 0.3s;
+    }
         .userinput:focus {
             border: 4px solid #03b1fc;
             color: #03b1fc;
             transition: 0.5s;
         }
+    .alert {
+        padding: 20px;
+        background-color: #9694a6;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+    }
+    .powerstorebar {
+        padding: 20px;
+        background-color: #9694a6;
+        color: white;
+        opacity: 1;
+        transition: opacity 0.6s;
+        margin-bottom: 15px;
+        text-align:center;
+        border-radius:8px;
+        font-weight:600;
+    }
+
+    .powerorb {
+        background: rgb(0,255,207);
+        background: linear-gradient(161deg, rgba(0,255,207,1) 0%, rgba(16,111,236,1) 100%);
+        height: 20px;
+        width: 20px;
+        border-radius: 50%;
+        display: inline-block;
+    }
+    .infobox {
+        background: rgba(0,0,0,0.5);
+    }
+    .powerUpButton{
+        margin:5px;
+    }
 </style>
 <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color:#03b1fc;border:none">
     <div class="container" style="text-align:center">
         <span style="font-weight:800;text-align:left;color:white;padding:10px;font-size:40px;float:left">Luiz</span>
         <span id="currentscore" style="background-color:black;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px">0000000</span>
         <span id="currentstreak" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
-        <span id="powerorbs" style="background-color:#035afc;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0</span>
         <span id="powerupamounts" style="background-color:gray;color:white;padding:5px;font-size:30px;font-weight:600;border-radius:4px;float:right;margin-top:10px;margin-right:5px">0/0</span>
     </div>
 </nav>
@@ -93,7 +137,29 @@
             <input type="button" value="Submit" id="logintoserver" class="btn btn-success" style="font-size:20px;border:none;background-color:#035afc" disabled />
         </div>
         <div id="waitingothers" style="margin:0" hidden>
-            
+            <div style="background-color:#cdcae3;border-radius:8px" id="powerstoregeneral">
+                <div class="powerstorebar">
+                    <span style="font-size:40px">Power Up Shop</span>
+                    <br />
+
+                    <div style="color:white;padding:7px;border-radius:4px;width:15%;margin:auto;margin-top:5px" class="infobox">
+                        <span class="powerorb"></span> <span id="powerorbs" style="font-size:25px">0</span>
+                    </div>
+
+
+                </div>
+                <div style="text-align:center">
+                    <input type="button" value="Save Me!" id="purchaseSaveMe" style="margin-right:10px" class="btn btn-primary powerUpButton" /><br />
+                    <input type="button" value="Double Points!" id="purchaseDoublePoints" class="btn btn-primary powerUpButton" /><br />
+                    <br />
+                </div>
+                <div id="purchaseError" style="display:none">
+                    <div class="alert">
+                        <span class="closebtn">&#x2714;</span>
+                        <strong>Uh Oh!</strong> <span id="purchaseErrorMessage">You don't have enough power orbs!</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <div id="youranswer" style="margin:0" hidden>
             w
@@ -102,7 +168,6 @@
 
     </div>  
 </body>
-
 <script src="~/lib/signalr/dist/browser/signalr.js"></script>
 <script src="~/lib/jquery/dist/jquery.js"></script>
 <script>
@@ -163,6 +228,7 @@
     var currentscore = 0;
     var currentstreak = 0;
     var correct = false;
+    var powerOrbs = 0;
     currentanswer = 0;
     $(document).ready(function () {
         userID = UUIDGenerate();
@@ -206,12 +272,29 @@
         $("#waitingothers").attr("hidden", true);
         $("#youranswer").attr("hidden", true);
         $("#answerstatus").css("background-color", "#EEEEEE");
+        $("#purchaseSaveMe").attr("disabled", false);
+        $("#purchaseDoublePoints").attr("disabled", false);
+        $("#purchaseError").css("display", "none")
     });
     quiz.on("inventoryUpdate", function (DoublePoints, SaveMe) {
         $("#powerupamounts").html(DoublePoints + "/" + SaveMe);
     });
     quiz.on("clientPower", function (NumPoints) {
         $("#powerorbs").html(NumPoints);
+        powerOrbs = NumPoints;
+    });
+    $(".closebtn").click(function () {
+        $("#purchaseError").css("display","none")
+    });
+    quiz.on("PUNotifyIF", function (Message) {
+        $("#purchaseError").css("display", "inline")
+        $("#purchaseErrorMessage").html(Message)
+    });
+    quiz.on("closeShopPurchases", function () {
+        $("#purchaseSaveMe").attr("disabled", true);
+        $("#purchaseDoublePoints").attr("disabled", true);
+        $("#purchaseError").css("display", "inline")
+        $("#purchaseErrorMessage").html("Times up! Power Up Shop CLOSED!");
     });
     quiz.start().then(function () {
         $("#usernametouse").on("change", function () {
@@ -228,7 +311,13 @@
             userName = $("#usernametouse").val();
             gameKey = $("#gamekeytouse").val();
             quiz.invoke("connectToServer", userID, userName, true, gameKey)
-        }); 
+        });
+        $("#purchaseSaveMe").click(function () {
+            quiz.invoke("PurchasePowerUp", userID, 1, powerOrbs)
+        });
+        $("#purchaseDoublePoints").click(function () {
+            quiz.invoke("PurchasePowerUp", userID, 2, powerOrbs)
+        });
         $(".answerbutton").click(function () {
             
             currentanswer = $(this).val();

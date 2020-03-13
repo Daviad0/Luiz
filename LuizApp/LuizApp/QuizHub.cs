@@ -194,6 +194,11 @@ namespace SignalRChat.Hubs
         public void TimeLeft(int seconds)
         {
             Clients.All.SendAsync("questionTimeLeft", seconds);
+            if(seconds == 15)
+            {
+                CloseShop();
+                //DOESN'T WORK
+            }
         }
         public void NextQuestion()
         {
@@ -232,7 +237,7 @@ namespace SignalRChat.Hubs
                     }
                     else
                     {
-                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", 100-CurrentPO);
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", "You need " + (100 - CurrentPO).ToString() + " more orbs to buy Save Me!");
                     }
                     break;
                 case 2:
@@ -243,12 +248,13 @@ namespace SignalRChat.Hubs
                     }
                     else
                     {
-                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", 200-CurrentPO);
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", "You need " + (200-CurrentPO).ToString() + " more orbs to buy Double Points!");
                     }
                     break;
                 default:
                     break;
             }
+            PowerUps[UserID].PowerPoints = CurrentPO;
             Clients.Client(Context.ConnectionId).SendAsync("inventoryUpdate", PowerUps[UserID].DoublePoints, PowerUps[UserID].SaveMe);
             Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
         }
@@ -256,6 +262,11 @@ namespace SignalRChat.Hubs
         {
             PowerUps[UserID].PowerPoints += Amount;
             Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
+        }
+        public void CloseShop()
+        {
+            var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
+            Clients.Group(SelectedGame.Key).SendAsync("closeShopPurchases");
         }
     }
 }
