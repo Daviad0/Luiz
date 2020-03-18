@@ -1,6 +1,7 @@
 ﻿using LuizApp.Data;
 using LuizApp.Models;
 using Microsoft.AspNetCore.SignalR;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -40,6 +41,7 @@ namespace SignalRChat.Hubs
                     powerUpLog.PowerPoints = 0;
                     powerUpLog.SaveMe = 0;
                     powerUpLog.TimeMax = 0;
+                    PowerUps.Add(UserID,powerUpLog);
                     Groups.AddToGroupAsync(Context.ConnectionId, GameKey);
                 }
                 else
@@ -87,7 +89,7 @@ namespace SignalRChat.Hubs
                         GameServer[item].Points += 7 * GameToSelect.Value.TimeLeft;
                         GameServer[item].Points += 40 * GameServer[item].Streak;
                         GameServer[item].Streak++;
-                        PowerUps[item].PowerPoints += GameToSelect.Value.TimeLeft + GameServer[item].Streak;
+                        PowerUps[item].PowerPoints += (int)Math.Floor(GameToSelect.Value.TimeLeft * (1 + (GameServer[item].Streak * .1)));
                         Clients.Client(GameServer[item].ConnectionId).SendAsync("answerStatus", GameServer[item].Points, true, GameServer[item].Streak);
                         numcorrect++;
                     }
@@ -127,14 +129,47 @@ namespace SignalRChat.Hubs
             foreach (var item in ClientLeaderboard.OrderByDescending(c => c.Value.Points).Where(c => c.Value.GameKey == SelectedGame.Key))
             {
                 Clients.Client(item.Value.ConnectionId).SendAsync("clientScoreSend", item.Value.Points, item.Value.Streak);
-                Clients.Client(item.Value.ConnectionId).SendAsync("powerOrbs", PowerUps[item.Key].PowerPoints);
+                Clients.Client(item.Value.ConnectionId).SendAsync("clientPower", PowerUps[item.Key].PowerPoints);
             }
             Clients.Group(SelectedGame.Value.ConnectionID).SendAsync("toggleScore");
 
         }
         public void GetLeaderboard()
         {
+            /*
+             THIS IS WHERE THE PROGRAM WILL TRACK THE AMOUNT OF USERS THAT IT HAS
+
+             POWER UP USAGE IS RESTRICTED TO 30%-70% ABSOLUTE POWER
+             ABSOLUTE POWER VALUE IS CALCULATED BEFORE EVERY LEADERBOARD LOAD
+             */
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
+
+            var AmountOfPlayers = 0;
+            var AmountOfPoints = 0;
+
+            foreach (var user in GameServer.Where(u => u.Value.GameKey == SelectedGame.Key))
+            {
+                AmountOfPlayers++;
+                AmountOfPoints += PowerUps[user.Key].PowerPoints;
+            }
+
+            if(((float)AmountOfPoints / (float)(AmountOfPlayers*300))*100 >= 30 && ((float)AmountOfPoints / (float)(AmountOfPlayers * 300)) * 100 <= 75)
+            {
+                Clients.Client(Context.ConnectionId).SendAsync("powerUpStatus", true, ((float)AmountOfPoints / (float)(AmountOfPlayers * 300)) * 100, AmountOfPoints);
+            }
+            else if ((AmountOfPoints / (AmountOfPlayers * 300)) * 100 > 75)
+            {
+                foreach (var user in GameServer.Where(u => u.Value.GameKey == SelectedGame.Key))
+                {
+                    PowerUps[user.Key].PowerPoints = (int)Math.Floor(PowerUps[user.Key].PowerPoints / 2.5);
+                }
+                Clients.Client(Context.ConnectionId).SendAsync("powerUpStatus", false, ((float)AmountOfPoints / (float)(AmountOfPlayers * 300)) * 100, AmountOfPoints);
+            }
+            else
+            {
+                Clients.Client(Context.ConnectionId).SendAsync("powerUpStatus", false, ((float)AmountOfPoints / (float)(AmountOfPlayers * 300)) * 100, AmountOfPoints);
+            }
+
             int i = 0;
             var PreviousUser = new GameServerConnection();
             var TopTen = new List<GameServerConnection>();
@@ -172,11 +207,16 @@ namespace SignalRChat.Hubs
         }
         public void LoadQuestion(int QuestionID)
         {
+            
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
+
+            
+
+            
             var QuestionToLoad = (from q in db.Questions where q.QuestionID == QuestionID select q).FirstOrDefault();
             Clients.Group(SelectedGame.Key).SendAsync("questionLoaded");
             Clients.Client(Context.ConnectionId).SendAsync("questionLoaded", QuestionToLoad);
-
+            SelectedGame.Value.PowerUpShop = true;
 
         }
         public void SetTimer(int TimeLeftGiven)
@@ -189,9 +229,10 @@ namespace SignalRChat.Hubs
         {
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.All.SendAsync("questionTimeLeft", seconds);
-            if(seconds < 15 && SelectedGame.Value.PowerUpEnabled == true)
+            if(seconds < 15 && SelectedGame.Value.PowerUpShop == true)
             {
                 CloseShop();
+                SelectedGame.Value.PowerUpShop = false;
                 //DOESN'T WORK
             }
         }
@@ -203,6 +244,11 @@ namespace SignalRChat.Hubs
         }
 
         /*
+         * 
+         * 
+         * 
+        MAX OF 300 POWER ORBS PER USER
+        
         BUY POWER UPS:
 
         100PO = Answer Streak Keeper

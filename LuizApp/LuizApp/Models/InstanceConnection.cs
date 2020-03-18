@@ -9,6 +9,7 @@ namespace LuizApp.Models
         public int PowerUpMin { get; set; }
         public int PowerUpCurrent { get; set; }
         public bool PowerUpEnabled { get; set; }
+        public bool PowerUpShop { get; set; }
         public bool Pause { get; set; }
     }
 }

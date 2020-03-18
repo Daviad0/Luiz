@@ -414,9 +414,14 @@
         } else {
             $("#r7").css("display","none")
         }
-        
+        ShowLeaderboard();
     });
+    function ShowLeaderboard() {
+            $("#questionp").css("display", "none");
+            $("#resultsp").css("display", "none");
+            $("#leaderboardp").css("display", "inline");
 
+        }
     quiz.start().then(function () {
         quiz.on("questionLoaded", function (QuestionLoaded) {
             $("#questiontest").html(QuestionLoaded.correctAnswer);
@@ -436,6 +441,12 @@
             setTimeout(Countdown, 1000);
             QuestionEnabled = true;
         });
+        quiz.on("powerUpStatus", function (Active, Percent, Amount) {
+            $("#iconib").html("<span class='powerorb'></span>");
+            $("#messageib").html(Amount);
+            $(".progressbar").css("width", Percent + "%")
+            $(".progressbar").css("background-color", "#03b1fc")
+        });
         $(document).ready(function () {
             GameKey = Math.floor((Math.random() * 1000000) + 1);
             quiz.invoke("instanceCreate", GameKey);
@@ -448,7 +459,7 @@
             ShowQuestion();
         });
         $("#leaderboard").click(function () {
-            ShowLeaderboard();
+            quiz.invoke("getLeaderboard");
         });
         $("#startgame").click(function () {
             $("#loginscreen").css("display", "none")
@@ -493,15 +504,7 @@
 
 
         }
-        function ShowLeaderboard() {
-            $("#questionp").css("display", "none");
-            $("#resultsp").css("display", "none");
-            $("#leaderboardp").css("display", "inline");
-            quiz.invoke("getLeaderboard");
-            $("#iconib").html("<span class='powerorb'></span>");
-            $("#messageib").html("0");
-
-        }
+        
         function Countdown() {
             Timer = Timer - 1;
             if (Timer > 0 && QuestionEnabled == true) {
