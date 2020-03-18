@@ -139,8 +139,10 @@ namespace SignalRChat.Hubs
             var PreviousUser = new GameServerConnection();
             var TopTen = new List<GameServerConnection>();
             var Behind = false;
+            var PowerPoints = 0;
             foreach(var item in GameServer.Where(c => c.Value.GameKey == SelectedGame.Key).OrderByDescending(c => c.Value.Points).ThenByDescending(c => c.Value.Streak).ThenBy(c => c.Value.UserName))
             {
+                PowerPoints = PowerPoints + PowerUps[item.Key].PowerPoints;
                 i++;
                 if(i <= 10)
                 {
@@ -150,7 +152,7 @@ namespace SignalRChat.Hubs
                 PreviousUser = item.Value;
                 Behind = true;
             }
-            Clients.Client(Context.ConnectionId).SendAsync("sendLeaderboard", TopTen);
+            Clients.Client(Context.ConnectionId).SendAsync("sendLeaderboard", TopTen, PowerPoints);
         }
         public void InstanceCreate(string GeneratedKey)
         {
@@ -185,12 +187,82 @@ namespace SignalRChat.Hubs
         //MASTER > CLIENT
         public void TimeLeft(int seconds)
         {
+            var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.All.SendAsync("questionTimeLeft", seconds);
+            if(seconds < 15 && SelectedGame.Value.PowerUpEnabled == true)
+            {
+                CloseShop();
+                //DOESN'T WORK
+            }
         }
         public void NextQuestion()
         {
             var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
             Clients.Group(SelectedGame.Key).SendAsync("nextQuestion");
+            
+        }
+
+        /*
+        BUY POWER UPS:
+
+        100PO = Answer Streak Keeper
+        200PO = Double Points
+
+        STEPS TO BUY POWER UPS:
+
+        1. Check LIVE shop availability
+        2. Check PO availability
+        3. Deduct PO
+        4. Give power up
+        5. Lock shop for user
+
+        POWERUP IDS:
+
+        1 - Save Me
+        2 - Double Points
+         */
+        public void PurchasePowerUp(string UserID, int PowerUpValue, int CurrentPO)
+        {
+            switch (PowerUpValue)
+            {
+                case 1:
+                    if(CurrentPO >= 100)
+                    {
+                        PowerUps[UserID].SaveMe++;
+                        CurrentPO = CurrentPO - 100;
+                    }
+                    else
+                    {
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", "You need " + (100 - CurrentPO).ToString() + " more orbs to buy Save Me!");
+                    }
+                    break;
+                case 2:
+                    if(CurrentPO >= 200)
+                    {
+                        PowerUps[UserID].DoublePoints++;
+                        CurrentPO = CurrentPO - 200;
+                    }
+                    else
+                    {
+                        Clients.Client(Context.ConnectionId).SendAsync("PUNotifyIF", "You need " + (200-CurrentPO).ToString() + " more orbs to buy Double Points!");
+                    }
+                    break;
+                default:
+                    break;
+            }
+            PowerUps[UserID].PowerPoints = CurrentPO;
+            Clients.Client(Context.ConnectionId).SendAsync("inventoryUpdate", PowerUps[UserID].DoublePoints, PowerUps[UserID].SaveMe);
+            Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
+        }
+        public void AwardPO(string UserID, int Amount)
+        {
+            PowerUps[UserID].PowerPoints += Amount;
+            Clients.Client(Context.ConnectionId).SendAsync("clientPower", PowerUps[UserID].PowerPoints);
+        }
+        public void CloseShop()
+        {
+            var SelectedGame = Instances.Where(u => u.Value.ConnectionID == Context.ConnectionId).FirstOrDefault();
+            Clients.Group(SelectedGame.Key).SendAsync("closeShopPurchases");
         }
     }
 }
